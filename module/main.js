@@ -1,14 +1,14 @@
 import * as Helpers from "./helpers.js";
-import { TSLVehicleSheet } from "./sheet.js";
 
 Hooks.once("init", () => {
-h  const templates = [];
+  const templates = [];
   loadTemplates(templates);
   console.log("The Sundered Lands | Loaded.");
 });
 
-Hooks.once("ready", () => {
-  Actors.registerSheet("tsl", TSLVehicleSheet, {
+Hooks.once("ready", async() => {
+  const sheet = (await import("./sheet.js")).TSLVehicleSheet;
+  Actors.registerSheet("tsl", sheet, {
     types: ["npc"],
     makeDefault: false,
     label: "TSL.VehicleSheet"

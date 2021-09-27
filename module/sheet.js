@@ -1,4 +1,8 @@
-export class TSLVehicleSheet extends ActorSheet {
+export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
+  get template() {
+    return "modules/tsl-module/templates/tsl-vehicle-sheet.hbs";
+  }
+  
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["tsl-vehicle"],
@@ -10,8 +14,7 @@ export class TSLVehicleSheet extends ActorSheet {
           contentSelector: ".tslv-sheet-body",
           initial: "summary"
         }
-      ],
-      template: "modules/tsl-module/templates/tsl-vehicle-sheet.hbs"
+      ]
     });
   }
 
