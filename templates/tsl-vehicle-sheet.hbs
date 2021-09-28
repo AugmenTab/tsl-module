@@ -1,3 +1,39 @@
 <form class="{{cssClass}}" autocomplete="off">
-  <p>TODO</p>
+  <div class="top-details">
+    <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+    <div class="basic-details">
+      <input name="name" type="text" value="{{actor.name}}" onfocus="this.select()"/>
+    </div>
+  </div>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="tslv-tabs tabs" data-group="primary">
+    <a class="item" data-tab="summary">Summary</a>
+    <a class="item" data-tab="components">Components</a>
+    <a class="item" data-tab="cargo">Cargo</a>
+    <a class="item" data-tab="notes">Notes</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="tslv-sheet-body">
+    {{!-- Summary --}}
+    <div class="tab" data-group="primary" data-tab="summary">
+      <p>Summary</p>
+    </div>
+
+    {{!-- Components --}}
+    <div class="tab" data-group="primary" data-tab="components">
+      <p>Components</p>
+    </div>
+
+    {{!-- Cargo --}}
+    <div class="tab" data-group="primary" data-tab="cargo">
+      <p>Cargo</p>
+    </div>
+
+    {{!-- Notes --}}
+    <div class="tab" data-group="primary" data-tab="notes">
+      {{editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=true}}
+    </div>
+  </section>
 </form>
