@@ -3,7 +3,7 @@
   { "labels":
     { "size": "-- Vehicle Size --"
     , "type": "-- Vehicle Type --"
-    , "classification": "-- Vehicle Classification --"
+    , "classification": "-- Vehicle Class --"
     }
 
   , "sizes":
