@@ -3,6 +3,37 @@
     <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
     <div class="basic-details">
       <input name="name" type="text" value="{{actor.name}}" onfocus="this.select()"/>
+      <select name="data.vehicle.size">
+        {{#select data.vehicle.size}}
+          <option value="none">{{localize "tsl.labels.size"}}</option>
+          <option value="fine">{{localize "tsl.sizes.fine"}}</option>
+          <option value="diminutive">{{localize "tsl.sizes.diminutive"}}</option>
+          <option value="tiny">{{localize "tsl.sizes.tiny"}}</option>
+          <option value="small">{{localize "tsl.sizes.small"}}</option>
+          <option value="medium">{{localize "tsl.sizes.medium"}}</option>
+          <option value="large">{{localize "tsl.sizes.large"}}</option>
+          <option value="huge">{{localize "tsl.sizes.huge"}}</option>
+          <option value="gargantuan">{{localize "tsl.sizes.gargantuan"}}</option>
+          <option value="colossal">{{localize "tsl.sizes.colossal"}}</option>
+        {{/select}}
+      </select>
+      <select name="data.vehicle.type">
+        {{#select data.vehicle.type}}
+          <option value="none">{{localize "tsl.labels.type"}}</option>
+          <option value="aerial">{{localize "tsl.vehicleTypes.aerial"}}</option>
+          <option value="aquatic">{{localize "tsl.vehicleTypes.aquatic"}}</option>
+          <option value="ground">{{localize "tsl.vehicleTypes.ground"}}</option>
+        {{/select}}
+      </select>
+      <select name="data.vehicle.classification">
+        {{#select data.vehicle.classification}}
+          <option value="none">{{localize "tsl.labels.type"}}</option>
+          <option value="steamhorse">{{localize "tsl.classifications.steamhorse"}}</option>
+          <option value="auto">{{localize "tsl.classifications.auto"}}</option>
+          <option value="heavy">{{localize "tsl.classifications.heavy"}}</option>
+        {{/select}}
+      </select>
+      <input name="data.vehicle.pilot" type="text" value="{{data.vehicle.pilot}}" placeholder="{{localize "tsl.summaryPage.pilot"}}" onfocus="this.select()"/>
     </div>
   </div>
 

@@ -1,5 +1,37 @@
 {
-  "tsl": {
+  "tsl":
+  { "labels":
+    { "size": "-- Vehicle Size --"
+    , "type": "-- Vehicle Type --"
+    , "classification": "-- Vehicle Classification --"
+    }
+
+  , "sizes":
+    { "fine": "Fine"
+    , "diminutive": "Diminutive"
+    , "tiny": "Tiny"
+    , "small": "Small"
+    , "medium": "Medium"
+    , "large": "Large"
+    , "huge": "Huge"
+    , "gargantuan": "Gargantuan"
+    , "colossal": "Colossal"
+    }
+
+  , "vehicleTypes":
+    { "aerial": "Aerial"
+    , "aquatic": "Aquatic"
+    , "ground": "Ground"
+    }
+
+  , "classifications":
+    { "steamhorse": "Steamhorse"
+    , "auto": "Auto"
+    , "heavy": "Heavy"
+    }
     
+  , "summaryPage":
+    { "pilot": "Pilot"
+    }
   }
 }
