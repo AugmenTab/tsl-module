@@ -49,60 +49,9 @@
   <section class="tslv-sheet-body">
     {{!-- Summary --}}
     <div class="tab" data-group="primary" data-tab="summary">
-      <div class="tsl-summary">
-        <table style="width:100px">
-          <thead>
-            <tr>
-              <th colspan="2">{{localize "tsl.stats.topSpeed"}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="height:60px">
-              <td colspan="2" style="font-size:2em">500</td>
-            </tr>
-          </tbody>
-          <thead>
-            <tr>
-              <th>{{localize "tsl.summaryPage.base"}}</th>
-              <th>{{localize "tsl.summaryPage.temp"}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="height:38px">
-              <td>500</td>
-              <td>
-                <input style="width:40px" name="data.stat.topSpeed.temp" type="number" data-dtype="Number" value="{{data.stat.topSpeed.temp}}" onfocus="this.select()"/>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table style="width:100px">
-          <thead>
-            <tr>
-              <th colspan="2">{{localize "tsl.stats.xlr8"}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="height:60px">
-              <td colspan="2"><img class="glow-red" height="48px" src="modules/tsl-module/img/fuel.svg"/></td>
-            </tr>
-          </tbody>
-          <thead>
-            <tr>
-              <th>{{localize "tsl.summaryPage.base"}}</th>
-              <th>{{localize "tsl.summaryPage.temp"}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="height:38px">
-              <td><img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/></td>
-              <td>
-                <input style="width:40px" name="data.stat.xlr8.temp" type="number" data-dtype="Number" value="{{data.stat.xlr8.temp}}" onfocus="this.select()"/>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      {{> "modules/tsl-module/templates/partials/tsl-core-stats.hbs"}}
+      <div></div>
+      <div></div>
     </div>
 
     {{!-- Components --}}

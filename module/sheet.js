@@ -6,7 +6,7 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["tsl-vehicle"],
-      height: 700,
+      height: 800,
       width: 700,
       tabs: [
         {
