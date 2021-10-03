@@ -5,6 +5,11 @@
     text-align: center;
   }
 
+  img {
+    border: none;
+    margin: 0;
+  }
+
   .glow-red {
     filter: invert(12%) sepia(99%) saturate(6635%) hue-rotate(3deg) brightness(114%) contrast(114%);
   }
@@ -47,11 +52,17 @@
       grid-template-columns: repeat(6, 1fr);
       column-gap: 16px;
       place-items: center;
+    }
 
-      img {
-        border: none;
-        margin: 0;
-      }
+    .tsl-picture-row {
+      display: grid;
+      grid-template-columns: 145px 1fr 145px;
+      column-gap: 8px;
+      height: 375px;
+    }
+
+    .tsl-final-row {
+
     }
 
     .tab.active {

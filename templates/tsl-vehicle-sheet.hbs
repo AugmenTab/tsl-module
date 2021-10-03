@@ -50,8 +50,33 @@
     {{!-- Summary --}}
     <div class="tab" data-group="primary" data-tab="summary">
       {{> "modules/tsl-module/templates/partials/tsl-core-stats.hbs"}}
-      <div></div>
-      <div></div>
+      <div class="tsl-picture-row">
+        {{!-- Three columns - data table, pic, data table. --}}
+        <div style="background:red"></div>
+        <div style="background:blue"></div>
+        <div style="background:red"></div>
+      </div>
+      <div class="tsl-final-row">
+        <table>
+          <thead>
+            <tr>
+              <th>Content</th>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <th>Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="text"/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     {{!-- Components --}}
