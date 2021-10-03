@@ -49,7 +49,36 @@
   <section class="tslv-sheet-body">
     {{!-- Summary --}}
     <div class="tab" data-group="primary" data-tab="summary">
-      <p>Summary</p>
+      <div class="tsl-summary">
+        <table style="width:100px">
+          <thead>
+            <tr>
+              <th colspan="2">XLR8</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="2">500</i></td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th>MODS</th>
+              <th>TEMP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input style="width:40px" name="data.stat.xlr8.mod" type="number" data-dtype="Number" value="{{data.stat.xlr8.mod}}" onfocus="this.select()"/>
+              </td>
+              <td>
+                <input style="width:40px" name="data.stat.xlr8.temp" type="number" data-dtype="Number" value="{{data.stat.xlr8.temp}}" onfocus="this.select()"/>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     {{!-- Components --}}

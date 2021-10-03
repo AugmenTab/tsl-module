@@ -1,18 +1,7 @@
 .tsl-vehicle {
-  nav {
-    margin-bottom: 8px;
-  }
-  
-  .tslv-sheet-body {
-    height: 82%;
-
-    .tab.active {
-      height: 100%;
-
-      .editor-content {
-        height: 525px;
-      }
-    }
+  table {
+    border: 1px solid black;
+    border-collapse: collapse;
   }
 
   .top-details {
@@ -37,6 +26,37 @@
         font-size: 2.5em;
         height: auto;
         grid-column: 1 / -1;
+      }
+    }
+  }
+
+  nav {
+    margin-bottom: 8px;
+  }
+  
+  .tslv-sheet-body {
+    height: 82%;
+
+    table {
+      text-align: center;
+    }
+
+    .tsl-summary {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      column-gap: 16px;
+      place-items: center;
+
+      tbody:first-of-type {
+        font-size: 2em;
+      }
+    }
+
+    .tab.active {
+      height: 100%;
+
+      .editor-content {
+        height: 525px;
       }
     }
   }

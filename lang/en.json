@@ -33,5 +33,14 @@
   , "summaryPage":
     { "pilot": "Pilot"
     }
+  
+  , "stats":
+    { "topSpeed": "TOP SPEED"
+    , "torque": "TORQUE"
+    , "xlr8": "XLR8"
+    , "turning": "TURNING"
+    , "brakes": "BRAKES"
+    , "load": "LOAD"
+    }
   }
 }
