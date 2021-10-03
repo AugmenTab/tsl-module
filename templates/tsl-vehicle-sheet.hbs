@@ -39,10 +39,10 @@
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="tslv-tabs tabs" data-group="primary">
-    <a class="item" data-tab="summary">Summary</a>
-    <a class="item" data-tab="components">Components</a>
-    <a class="item" data-tab="cargo">Cargo</a>
-    <a class="item" data-tab="notes">Notes</a>
+    <a class="item" data-tab="summary">{{localize "tsl.nav.summary"}}</a>
+    <a class="item" data-tab="components">{{localize "tsl.nav.components"}}</a>
+    <a class="item" data-tab="cargo">{{localize "tsl.nav.cargo"}}</a>
+    <a class="item" data-tab="notes">{{localize "tsl.nav.notes"}}</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -53,7 +53,7 @@
         <table style="width:100px">
           <thead>
             <tr>
-              <th colspan="2">XLR8</th>
+              <th colspan="2">{{localize "tsl.stats.xlr8"}}</th>
             </tr>
           </thead>
           <tbody>
@@ -63,15 +63,13 @@
           </tbody>
           <thead>
             <tr>
-              <th>MODS</th>
-              <th>TEMP</th>
+              <th>{{localize "tsl.summaryPage.base"}}</th>
+              <th>{{localize "tsl.summaryPage.temp"}}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>
-                <input style="width:40px" name="data.stat.xlr8.mod" type="number" data-dtype="Number" value="{{data.stat.xlr8.mod}}" onfocus="this.select()"/>
-              </td>
+              <td>500</td>
               <td>
                 <input style="width:40px" name="data.stat.xlr8.temp" type="number" data-dtype="Number" value="{{data.stat.xlr8.temp}}" onfocus="this.select()"/>
               </td>

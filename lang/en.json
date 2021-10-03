@@ -29,9 +29,18 @@
     , "auto": "Auto"
     , "heavy": "Heavy"
     }
+
+  , "nav":
+    { "summary": "Summary"
+    , "components": "Components"
+    , "cargo": "Cargo"
+    , "notes": "Notes"
+    }
     
   , "summaryPage":
     { "pilot": "Pilot"
+    , "base": "BASE"
+    , "temp": "TEMP"
     }
   
   , "stats":
