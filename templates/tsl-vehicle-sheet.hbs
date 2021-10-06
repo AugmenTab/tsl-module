@@ -56,48 +56,57 @@
           <table>
             <thead>
               <tr>
-                <th>
-                  <a><i class="fas fa-minus"></i></a>
-                </th>
-                <th>Current Sp</th>
-                <th>
-                  <a><i class="fas fa-plus"></i></a>
-                </th>
+                <th>Current Speed</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td colspan="3">15,500</td>
+                <td>
+                  <div class="tsl-gauge">
+                    <div class="tsl-current-value">
+                      <a><i class="fas fa-minus"></i></a>
+                      <input style="width:75px" name="" type="number" data-dtype="Number" value="" onfocus="this.select()"/>
+                      <a><i class="fas fa-plus"></i></a>
+                    </div>
+                    <div class="gauge" style="width:140px">
+                      <span class="dial band"></span>
+                      <span class="needle pushed"></span>
+                      {{!-- Speedo ticks; big every 4. Range 176deg, /4 = 44. --}}
+                      {{!-- Fuel ticks; Big every 25%, one between each. --}}
+                      {{!-- Fuel gauge w/ red fuel.svg inside when <25% fuel. --}}
+                    </div>
+                  </div>
+                </td>
               </tr>
-            </tbody>
-            <thead>
               <tr>
-                <th colspan="3">MPH</th>
+                <td>
+                  <div class="tsl-speed-3">
+                    <span>MPH</span>
+                    <span>25</span>
+                    <span>/</span>
+                    <span>52</span>
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody>
               <tr>
-                <td colspan="3">15,500</td>
+                <td>
+                  <div class="tsl-speed-3">
+                    <span>KPH</span>
+                    <span>25</span>
+                    <span>/</span>
+                    <span>15,500</span>
+                  </div>
+                </td>
               </tr>
-            </tbody>
-            <thead>
               <tr>
-                <th colspan="3">KPH</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="3">15,500</td>
-              </tr>
-            </tbody>
-            <thead>
-              <tr>
-                <th colspan="3">Squares / Round</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td colspan="3">15,500</td>
+                <td>
+                  <div class="tsl-speed-3">
+                    <span>SPR</span>
+                    <span>15,500</span>
+                    <span>/</span>
+                    <span>15,500</span>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
