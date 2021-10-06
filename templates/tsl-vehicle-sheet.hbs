@@ -110,20 +110,117 @@
               </tr>
             </tbody>
           </table>
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">Hit Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-size:1.25em">
+                  <input style="width:40px" name="" type="number" data-dtype="Number" value="" onfocus="this.select()"/>
+                  / 15,500
+                </td>
+              </tr>
+              <tr>
+                <td style="font-size:1.25em"><b>Armor Class: </b>500</td>
+              </tr>
+            </tbody>
+          </table>
+          <table>
+            <thead>
+              <tr>
+                <th>Curb Weight</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-size:1.25em">15,500 / 15,500</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div style="background:blue"></div>
-        <div style="background:red"></div>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th colspan="3">Hours of Operation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="3">
+                  <div class="tsl-gauge">
+                    <div class="tsl-current-value">
+                      <a><i class="fas fa-minus"></i></a>
+                      <input style="width:75px" name="" type="number" data-dtype="Number" value="" onfocus="this.select()"/>
+                      <a><i class="fas fa-plus"></i></a>
+                    </div>
+                    <div class="gauge" style="width:140px">
+                      <span class="dial"></span>
+                      <span class="needle"></span>
+                      {{!-- Speedo ticks; big every 4. Range 176deg, /4 = 44. --}}
+                      {{!-- Fuel ticks; Big every 25%, one between each. --}}
+                      {{!-- Fuel gauge w/ red fuel.svg inside when <25% fuel. --}}
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th>Base</th>
+                <th>Ld</th>
+                <th>Mods</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>800</td>
+                <td>-800</td>
+                <td><input style="width:40px" name="" type="number" data-dtype="Number" value=""/></td>
+              </tr>
+              <tr>
+                <td colspan="3"><b>Fuel Capacity: </b>1,200</td>
+              </tr>
+            </tbody>
+          </table>
+          <table>
+            <thead>
+              <tr>
+                <th colspan="2">Ramming Damage</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-size:2em" colspan="2">50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><i class="fas fa-car-crash"></i></a></td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th>Base</th>
+                <th>Mods</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>800</td>
+                <td><input style="width:40px" name="" type="number" data-dtype="Number" value=""/></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="tsl-final-row">
         <table>
           <thead>
             <tr>
-              <th>Content</th>
+              <th>Onboard Weapons</th>
             </tr>
-          </thead>
-          <thead>
             <tr>
-              <th>Content</th>
+              <th>Stat Cell Headers Go Here</th>
             </tr>
           </thead>
           <tbody>
