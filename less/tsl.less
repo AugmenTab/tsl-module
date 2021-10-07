@@ -89,7 +89,7 @@
             border-bottom-right-radius: 0px;
           }
 
-          .band { // on speedometer only; remove for fuel gauge
+          .band {
             border-top: 4px solid green;
             border-left: 4px solid green;
             border-right: 4px solid red;
@@ -108,8 +108,9 @@
             transform-origin: bottom center;
           }
 
-          .tick-speedo:nth-of-type(2n) {
+          .tick:nth-of-type(2n) {
             border-top: 7px solid #d0d0d0;
+            width: 3px;
           }
 
           each(range(24), {
@@ -117,6 +118,20 @@
               transform: rotate(-104deg + (@value * 8));
             }
           });
+
+          each(range(10), {
+            .tick-fuel:nth-of-type(@{value}) {
+              transform: rotate(-90deg + (@value * 15));
+            }
+          });
+
+          .fuel-light {
+            display: inline-block;
+            height: 30px;
+            position: absolute;
+            left: calc(42%);
+            top: 25px;
+          }
 
           .needle {
             display: inline-block;
@@ -130,8 +145,7 @@
             left: calc(50% - 1px);
             top: 8px;
             position: absolute;
-            transform: rotate(-88deg);
-            // -88deg to 88deg range. calc with -88 + (% of max * 176)
+            transform: rotate(-30deg); // -88deg to 88deg range. calc with -88 + (% of max * 176). Will be added inline in HTML/Handlebars.
             transform-origin: bottom;
           }
 

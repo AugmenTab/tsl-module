@@ -162,10 +162,11 @@
                     </div>
                     <div class="gauge" style="width:140px">
                       <span class="dial"></span>
+                      {{#times 10}}
+                        <span class="tick tick-fuel"></span>
+                      {{/times}}
+                      <img style="{{! if someval < 25% display:none}}" class="glow-red fuel-light" src="modules/tsl-module/img/fuel.svg"/>
                       <span class="needle"></span>
-                      {{!-- Speedo ticks; big every 4. Range 176deg, /4 = 44. --}}
-                      {{!-- Fuel ticks; Big every 25%, one between each. --}}
-                      {{!-- Fuel gauge w/ red fuel.svg inside when <25% fuel. --}}
                     </div>
                   </div>
                 </td>
