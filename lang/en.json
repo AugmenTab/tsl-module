@@ -41,6 +41,15 @@
     { "pilot": "Pilot"
     , "base": "BASE"
     , "temp": "TEMP"
+    , "mods": "MODS"
+    , "ld": "LD"
+    , "currentSpeed": "CURRENT SPEED"
+    , "hitPoints": "HIT POINTS"
+    , "curbWeight": "CURB WEIGHT"
+    , "hoursOfOperation": "HOURS OF OPERATION"
+    , "fuelCap": "Fuel Capacity"
+    , "rammingDamage": "RAMMING DAMAGE"
+    , "onboardWeapons": "ONBOARD WEAPONS"
     }
   
   , "stats":
