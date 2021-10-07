@@ -3,6 +3,8 @@ import * as Helpers from "./helpers.js";
 Hooks.once("init", () => {
   const templates =
     [ "modules/tsl-module/templates/partials/tsl-core-stats.hbs"
+    , "modules/tsl-module/templates/partials/tsl-summary-leftpane.hbs"
+    , "modules/tsl-module/templates/partials/tsl-summary-rightpane.hbs"
     ];
   loadTemplates(templates);
   console.log("The Sundered Lands | Loaded.");

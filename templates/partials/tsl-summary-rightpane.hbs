@@ -1,0 +1,76 @@
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="3">{{localize "tsl.summaryPage.hoursOfOperation"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="3">
+          <div class="tsl-gauge">
+            <div class="tsl-current-value">
+              <a><i class="fas fa-minus"></i></a>
+              <input style="width:75px" name="" type="number" data-dtype="Number" value="" onfocus="this.select()"/>
+              <a><i class="fas fa-plus"></i></a>
+            </div>
+            <div class="gauge" style="width:140px">
+              <span class="dial"></span>
+              {{#times 10}}
+                <span class="tick tick-fuel"></span>
+              {{/times}}
+              <img style="{{! if someval < 25% display:none}}" class="glow-red fuel-light" src="modules/tsl-module/img/fuel.svg"/>
+              <span class="needle"></span>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th>{{localize "tsl.summaryPage.base"}}</th>
+        <th>{{localize "tsl.summaryPage.ld"}}</th>
+        <th>{{localize "tsl.summaryPage.mods"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>8000</td>
+        <td>-8000</td>
+        <td><input style="width:40px" name="" type="number" data-dtype="Number" value=""/></td>
+      </tr>
+      <tr>
+        <td colspan="3"><b>{{localize "tsl.summaryPage.fuelCap"}}:&nbsp;</b>1,200</td>
+      </tr>
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="2">{{localize "tsl.summaryPage.rammingDamage"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan="2">
+          <div class="tsl-ramming-damage">
+            <span>15,500</span>
+            <a><i class="fas fa-car-crash"></i></a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th>{{localize "tsl.summaryPage.base"}}</th>
+        <th>{{localize "tsl.summaryPage.mods"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>15,500</td>
+        <td><input style="width:40px" name="" type="number" data-dtype="Number" value=""/></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
