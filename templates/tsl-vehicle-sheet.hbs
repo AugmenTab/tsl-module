@@ -112,7 +112,7 @@
               </tr>
             </tbody>
           </table>
-          <table>
+          <table class="tsl-defenses">
             <thead>
               <tr>
                 <th colspan="2">{{localize "tsl.summaryPage.hitPoints"}}</th>
@@ -120,14 +120,17 @@
             </thead>
             <tbody>
               <tr>
-                <td style="font-size:1.25em">
-                  <input style="width:40px" name="" type="number" data-dtype="Number" value="" onfocus="this.select()"/>
-                  / 15,500
+                <td>
+                  <div class="tsl-hp">
+                    <input name="" type="number" data-dtype="Number" value="" onfocus="this.select()"/>
+                    <span>/</span>
+                    <span>15,500</span>
+                  </div>
                 </td>
               </tr>
               <tr>
                 <td>
-                  <div class="tsl-defenses">
+                  <div class="tsl-ac-armor">
                     <span><b>AC</b></span>
                     <span>50</span>
                     <span><b>HD</b></span>
@@ -145,7 +148,7 @@
             </thead>
             <tbody>
               <tr>
-                <td style="font-size:1.25em">15,500 / 15,500</td>
+                <td style="font-size:1.25em">31,000,000</td>
               </tr>
             </tbody>
           </table>
@@ -188,8 +191,8 @@
             </thead>
             <tbody>
               <tr>
-                <td>800</td>
-                <td>-800</td>
+                <td>8000</td>
+                <td>-8000</td>
                 <td><input style="width:40px" name="" type="number" data-dtype="Number" value=""/></td>
               </tr>
               <tr>
@@ -205,7 +208,12 @@
             </thead>
             <tbody>
               <tr>
-                <td style="font-size:2em" colspan="2">50&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><i class="fas fa-car-crash"></i></a></td>
+                <td colspan="2">
+                  <div class="tsl-ramming-damage">
+                    <span>15,500</span>
+                    <a><i class="fas fa-car-crash"></i></a>
+                  </div>
+                </td>
               </tr>
             </tbody>
             <thead>
@@ -216,7 +224,7 @@
             </thead>
             <tbody>
               <tr>
-                <td>800</td>
+                <td>15,500</td>
                 <td><input style="width:40px" name="" type="number" data-dtype="Number" value=""/></td>
               </tr>
             </tbody>

@@ -129,7 +129,7 @@
             display: inline-block;
             height: 30px;
             position: absolute;
-            left: calc(42%);
+            left: calc(41%);
             top: 25px;
           }
 
@@ -172,6 +172,37 @@
         span:first-of-type {
           font-weight: bold;
         }
+      }
+
+      .tsl-defenses {
+        td {
+          border-right: 1px solid black;
+        }
+
+        .tsl-hp {
+          display: grid;
+          grid-template-columns: 1fr 8px 1fr;
+          place-items: center;
+          font-size: 1.25em;
+
+          input {
+            width: 60px;
+          }
+        }
+        
+        .tsl-ac-armor {
+          display: grid;
+          grid-template-columns: repeat(2, 30px 1fr);
+          place-items: center;
+          font-size: 1.15em;
+        }
+      }
+
+      .tsl-ramming-damage {
+        display: grid;
+        grid-template-columns: 1fr 45px;
+        place-items: center;
+        font-size: 2em;
       }
     }
 
