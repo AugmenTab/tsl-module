@@ -53,3 +53,15 @@ Handlebars.registerHelper("cond", function(...var_args) {
  Handlebars.registerHelper("localnum", function(num) {
   return num.toLocaleString();
 });
+
+/**
+ * Repeat a section of code n times.
+ * @param {number} n - The number of times to repeat the code block.
+ * @param {Block} block - The Handlebars block.
+ * @returns {string} A string of the repeated HTML code.
+ */
+ Handlebars.registerHelper("times", function(n, block) {
+  let accum = "";
+  for (let i = 0; i < n; i++) accum += block.fn(i);
+  return accum;
+});
