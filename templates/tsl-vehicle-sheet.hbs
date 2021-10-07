@@ -70,8 +70,10 @@
                     </div>
                     <div class="gauge" style="width:140px">
                       <span class="dial band"></span>
+                      {{#times 24}}
+                        <span class="tick tick-speedo"></span>
+                      {{/times}}
                       <span class="needle pushed"></span>
-                      {{!-- Speedo ticks; big every 4. Range 176deg, /4 = 44. --}}
                       {{!-- Fuel ticks; Big every 25%, one between each. --}}
                       {{!-- Fuel gauge w/ red fuel.svg inside when <25% fuel. --}}
                     </div>
@@ -80,7 +82,7 @@
               </tr>
               <tr>
                 <td>
-                  <div class="tsl-speed-3">
+                  <div class="tsl-speed-conversion">
                     <span>MPH</span>
                     <span>25</span>
                     <span>/</span>
@@ -90,7 +92,7 @@
               </tr>
               <tr>
                 <td>
-                  <div class="tsl-speed-3">
+                  <div class="tsl-speed-conversion">
                     <span>KPH</span>
                     <span>25</span>
                     <span>/</span>
@@ -100,7 +102,7 @@
               </tr>
               <tr>
                 <td>
-                  <div class="tsl-speed-3">
+                  <div class="tsl-speed-conversion">
                     <span>SPR</span>
                     <span>15,500</span>
                     <span>/</span>
@@ -124,7 +126,7 @@
                 </td>
               </tr>
               <tr>
-                <td style="font-size:1.25em"><b>Armor Class: </b>500</td>
+                <td style="font-size:1.2em"><b>Armor Class: </b>500</td>
               </tr>
             </tbody>
           </table>

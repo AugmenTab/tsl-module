@@ -90,9 +90,33 @@
           }
 
           .band { // on speedometer only; remove for fuel gauge
-            border-top: 6px solid green;
-            border-right: 6px solid red;
+            border-top: 4px solid green;
+            border-left: 4px solid green;
+            border-right: 4px solid red;
           }
+
+          .tick {
+            display: inline-block;
+            width: 2px;
+            height: 60px;
+            background: none;
+            border-top: 3px solid #d0d0d0;
+            border-radius: 1px;
+            left: calc(50% - 1px);
+            top: 8px;
+            position: absolute;
+            transform-origin: bottom center;
+          }
+
+          .tick-speedo:nth-of-type(2n) {
+            border-top: 7px solid #d0d0d0;
+          }
+
+          each(range(24), {
+            .tick-speedo:nth-of-type(@{value}) {
+              transform: rotate(-104deg + (@value * 8));
+            }
+          });
 
           .needle {
             display: inline-block;
@@ -103,30 +127,30 @@
             border-bottom-right-radius: 5px;
             border-top-left-radius: 200%;
             border-top-right-radius: 200%;
-            left: 66px;
+            left: calc(50% - 1px);
             top: 8px;
             position: absolute;
-            transform: rotate(88deg); 
+            transform: rotate(-88deg);
             // -88deg to 88deg range. calc with -88 + (% of max * 176)
             transform-origin: bottom;
           }
 
           .pushed { // for speedometer only; when pushed past Top Speed
-            animation: move 0.25s infinite;
+            animation: move 0.2s infinite;
           }
 
           @keyframes move {
             0% {
-              transform: rotate(85deg);  
+              transform: rotate(88deg);  
             }
             100% {
-              transform: rotate(88deg);
+              transform: rotate(90deg);
             }
           }
         }
       }
 
-      .tsl-speed-3 {
+      .tsl-speed-conversion {
         display: grid;
         grid-template-columns: 30px 1fr 8px 1fr;
         place-items: center;
