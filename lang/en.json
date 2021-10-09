@@ -52,6 +52,16 @@
     , "onboardWeapons": "ONBOARD WEAPONS"
     }
   
+  , "componentsPage":
+    { "total": "TOTAL"
+    , "base": "BASE"
+    , "mods": "MODS"
+    , "integrity": "INTEGRITY"
+    , "resist": "RESIST"
+    , "notesLabel": "COMPONENTS NOTES"
+    , "notesPlaceholder": "Write notes about your components here."
+    }
+  
   , "stats":
     { "topSpeed": "TOP SPEED"
     , "torque": "TORQUE"
@@ -59,6 +69,38 @@
     , "turning": "TURNING"
     , "brakes": "BRAKES"
     , "load": "LOAD"
+    }
+  
+  , "components":
+    { "engine":
+      { "label": "ENGINE"
+      , "stat": "Ho"
+      , "primary": "TYPE"
+      , "secondary": "FUEL"
+      }
+    , "transmission":
+      { "label": "TRANSMISSION"
+      , "stat": "Po"
+      , "primary": "TYPE"
+      }
+    , "chassis":
+      { "label": "CHASSIS"
+      , "stat": "Br"
+      , "primary": "DRIVE"
+      , "secondary": "LOCOMOTION"
+      }
+    , "suspension":
+      { "label": "SUSPENSION"
+      , "stat": "Re"
+      , "primary": "DEPENDENCY"
+      , "secondary": "TYPE"
+      }
+    , "body":
+      { "label": "BODY"
+      , "stat": "WEIGHT"
+      , "primary": "STYLE"
+      , "secondary": "CREW"
+      }
     }
   }
 }
