@@ -66,11 +66,14 @@
             </tr>
           </thead>
           <tbody>
+            {{!-- #IF engine is gasoline or diesel, add attacks here. /IF --}}
+            {{!-- #EACH item of type weapon attached to vehicle. --}}
             <tr>
               <td>
                 <input type="text"/>
               </td>
             </tr>
+            {{!-- /EACH --}}
           </tbody>
         </table>
       </div>
@@ -78,7 +81,58 @@
 
     {{!-- Components --}}
     <div class="tab" data-group="primary" data-tab="components">
-      <p>Components</p>
+      <div class="tsl-components-row">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="4">ENGINE</th>
+            </tr>
+            <tr>
+              <th colspan="2">TOTAL</th>
+              <th>BASE</th>
+              <th>MODS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Ho</th>
+              <td>1555</td>
+              <td>1555</td>
+              <td>0</td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th colspan="2">TOTAL</th>
+              <th>BASE</th>
+              <th>RESIST</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>INTEGRITY</th>
+              <td>10</td>
+              <td>10</td>
+              <td>0</td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th colspan="4">&nbsp;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>TYPE</th>
+              <td colspan="3">Crystal Engine</td>
+            </tr>
+            <tr>
+              <th>FUEL</th>
+              <td colspan="3">GUZZOLENE</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     {{!-- Cargo --}}
