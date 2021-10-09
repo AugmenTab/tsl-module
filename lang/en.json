@@ -33,6 +33,7 @@
   , "nav":
     { "summary": "Summary"
     , "components": "Components"
+    , "modifications": "Modifications"
     , "cargo": "Cargo"
     , "notes": "Notes"
     }
