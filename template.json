@@ -1,6 +1,11 @@
 {
   "vehicle":
-  { "ac": 0
+  { "ac":
+    { "base": 0
+    , "mods": 0
+    , "temp": 0
+    , "total": 0
+    }
   
   , "base":
     { "size": "none"
@@ -88,7 +93,6 @@
       , "primary": ""
       , "secondary": ""
       }
-
     }
 
   , "fuelCapacity":
@@ -168,13 +172,12 @@
       , "temp": 0
       , "total": 0
       }
-      
     }
   
   , "weight":
-    { "crew": 0.0
-    , "cargo": 0.0
+    { "cargo": 0.0
+    , "crew": 0.0
+    , "curb": 0.0
     }
-
   }
 }

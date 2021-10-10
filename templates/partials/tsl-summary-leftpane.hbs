@@ -11,7 +11,7 @@
           <div class="tsl-gauge">
             <div class="tsl-current-value">
               <a><i class="fas fa-minus"></i></a>
-              <input style="width:75px" name="" type="number" data-dtype="Number" value="" onfocus="this.select()"/>
+              <input style="width:75px" name="data.vehicle.speed.current" type="number" data-dtype="Number" value="{{data.vehicle.speed.current}}" onfocus="this.select()"/>
               <a><i class="fas fa-plus"></i></a>
             </div>
             <div class="gauge" style="width:140px">
@@ -19,9 +19,13 @@
               {{#times 24}}
                 <span class="tick tick-speedo"></span>
               {{/times}}
-              <span class="needle pushed"></span>
-              {{!-- Fuel ticks; Big every 25%, one between each. --}}
-              {{!-- Fuel gauge w/ red fuel.svg inside when <25% fuel. --}}
+              <span
+                {{!-- TODO style="transform:rotate({{speedAngle _}}deg)" :: -88deg to 88deg range. calc with -88 + (% of max * 176). --}}
+                class="needle
+                  {{#if (cond ">" data.vehicle.speed.current data.vehicle.speed.max)}}
+                    pushed
+                  {{/if}}"
+              ></span>
             </div>
           </div>
         </td>
@@ -30,9 +34,9 @@
         <td>
           <div class="tsl-speed-conversion">
             <span>MPH</span>
-            <span>25</span>
+            <span>{{convert "mph" data.vehicle.speed.current}}</span>
             <span>/</span>
-            <span>52</span>
+            <span>{{convert "mph" data.vehicle.speed.max}}</span>
           </div>
         </td>
       </tr>
@@ -40,9 +44,9 @@
         <td>
           <div class="tsl-speed-conversion">
             <span>KPH</span>
-            <span>25</span>
+            <span>{{convert "kph" data.vehicle.speed.current}}</span>
             <span>/</span>
-            <span>15,500</span>
+            <span>{{convert "kph" data.vehicle.speed.max}}</span>
           </div>
         </td>
       </tr>
@@ -50,9 +54,9 @@
         <td>
           <div class="tsl-speed-conversion">
             <span>SPR</span>
-            <span>15,500</span>
+            <span>{{convert "spr" data.vehicle.speed.current}}</span>
             <span>/</span>
-            <span>15,500</span>
+            <span>{{convert "spr" data.vehicle.speed.max}}</span>
           </div>
         </td>
       </tr>
@@ -68,9 +72,9 @@
       <tr>
         <td>
           <div class="tsl-hp">
-            <input name="" type="number" data-dtype="Number" value="" onfocus="this.select()"/>
+            <input name="data.vehicle.hp.value" type="number" data-dtype="Number" value="{{data.vehicle.hp.value}}" onfocus="this.select()"/>
             <span>/</span>
-            <span>15,500</span>
+            <span>{{data.vehicle.hp.max}}</span>
           </div>
         </td>
       </tr>
@@ -78,9 +82,9 @@
         <td>
           <div class="tsl-ac-armor">
             <span><b>AC</b></span>
-            <span>50</span>
+            <span>{{data.vehicle.ac.total}}</span>
             <span><b>HD</b></span>
-            <span>50</span>
+            <span>{{data.vehicle.components.body.armor.total}}</span>
           </div>
         </td>
       </tr>
@@ -94,7 +98,7 @@
     </thead>
     <tbody>
       <tr>
-        <td style="font-size:1.25em">31,000,000</td>
+        <td style="font-size:1.25em">{{data.vehicle.weight.curb}}</td>
       </tr>
     </tbody>
   </table>

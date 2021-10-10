@@ -3,8 +3,8 @@
     <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
     <div class="basic-details">
       <input name="name" type="text" value="{{actor.name}}" onfocus="this.select()"/>
-      <select name="data.vehicle.size">
-        {{#select data.vehicle.size}}
+      <select name="data.vehicle.base.size">
+        {{#select data.vehicle.base.size}}
           <option value="none">{{localize "tsl.labels.size"}}</option>
           <option value="fine">{{localize "tsl.sizes.fine"}}</option>
           <option value="diminutive">{{localize "tsl.sizes.diminutive"}}</option>
@@ -17,23 +17,23 @@
           <option value="colossal">{{localize "tsl.sizes.colossal"}}</option>
         {{/select}}
       </select>
-      <select name="data.vehicle.type">
-        {{#select data.vehicle.type}}
+      <select name="data.vehicle.base.type">
+        {{#select data.vehicle.base.type}}
           <option value="none">{{localize "tsl.labels.type"}}</option>
           <option value="aerial">{{localize "tsl.vehicleTypes.aerial"}}</option>
           <option value="aquatic">{{localize "tsl.vehicleTypes.aquatic"}}</option>
           <option value="ground">{{localize "tsl.vehicleTypes.ground"}}</option>
         {{/select}}
       </select>
-      <select name="data.vehicle.classification">
-        {{#select data.vehicle.classification}}
+      <select name="data.vehicle.base.classification">
+        {{#select data.vehicle.base.classification}}
           <option value="none">{{localize "tsl.labels.classification"}}</option>
           <option value="steamhorse">{{localize "tsl.classifications.steamhorse"}}</option>
           <option value="auto">{{localize "tsl.classifications.auto"}}</option>
           <option value="heavy">{{localize "tsl.classifications.heavy"}}</option>
         {{/select}}
       </select>
-      <input name="data.vehicle.pilot" type="text" value="{{data.vehicle.pilot}}" placeholder="{{localize "tsl.summaryPage.pilot"}}" onfocus="this.select()"/>
+      <input name="data.vehicle.base.pilot" type="text" value="{{data.vehicle.base.pilot}}" placeholder="{{localize "tsl.summaryPage.pilot"}}" onfocus="this.select()"/>
     </div>
   </div>
 
@@ -54,11 +54,11 @@
       <div class="tsl-picture-row">
         {{> "modules/tsl-module/templates/partials/tsl-summary-leftpane.hbs"}}
         <img
-          {{#if (cond "||" (eq data.vehicle.type "none") (eq data.vehicle.classification "none"))}}
+          {{#if (cond "||" (eq data.vehicle.base.type "none") (eq data.vehicle.base.classification "none"))}}
             alt="No vehicle." src="modules/tsl-module/img/none.png"
           {{else}}
-            alt="{{localize (concat "tsl.vehicleTypes." data.vehicle.type)}}&nbsp;{{localize (concat "tsl.classifications." data.vehicle.classification)}}"
-            src="modules/tsl-module/img/{{data.vehicle.type}}-{{data.vehicle.classification}}.png"
+            alt="{{localize (concat "tsl.vehicleTypes." data.vehicle.base.type)}}&nbsp;{{localize (concat "tsl.classifications." data.vehicle.base.classification)}}"
+            src="modules/tsl-module/img/{{data.vehicle.base.type}}-{{data.vehicle.base.classification}}.png"
           {{/if}}
         />
         {{> "modules/tsl-module/templates/partials/tsl-summary-rightpane.hbs"}}
