@@ -44,6 +44,7 @@
     , "temp": "TEMP"
     , "mods": "MODS"
     , "ld": "LD"
+    , "fluid": "FLUID"
     , "currentSpeed": "CURRENT SPEED"
     , "hitPoints": "HIT POINTS"
     , "curbWeight": "CURB WEIGHT"
@@ -61,6 +62,17 @@
     , "resist": "RESIST"
     , "notesLabel": "COMPONENTS NOTES"
     , "notesPlaceholder": "Write notes about your components here."
+    }
+
+  , "cargoPage":
+    { "crewWeight": "Crew Weight"
+    , "cargoWeight": "Cargo Weight"
+    , "cargoItem": "CARGO ITEM"
+    , "carried": "CARRIED"
+    , "eachWeight": "EA WT"
+    , "quantity": "QTY"
+    , "weight": "WT"
+    , "notes": "Write notes about your cargo here."
     }
   
   , "stats":

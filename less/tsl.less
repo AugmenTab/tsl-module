@@ -216,6 +216,44 @@
       column-gap: 8px;
     }
 
+    .tsl-cargo-totals {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      place-items: center;
+
+      h3 {
+        margin: 0;
+      }
+
+      .crew-weight {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        column-gap: 8px;
+        place-items: center;
+        text-align: center;
+
+      }
+    }
+
+    .tsl-cargo-table {
+      input {
+        margin: 0;
+      }
+
+      .cargo-item {
+        display: grid;
+        grid-template-columns: 1.75em 1fr;
+        column-gap: 8px;
+        align-items: center;
+        text-align: start;
+        width: 100%;
+
+        img {
+          height: 1.75em;
+        }
+      }
+    }
+
     .tab.active {
       height: 100%;
 
