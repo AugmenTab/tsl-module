@@ -11,7 +11,7 @@
           <div class="tsl-gauge">
             <div class="tsl-current-value">
               <a><i class="fas fa-minus"></i></a>
-              <input style="width:75px" name="data.vehicle.speed.current" type="number" data-dtype="Number" value="{{data.vehicle.speed.current}}" onfocus="this.select()"/>
+              <input style="width:75px" name="data.vehicle.speed.value" type="number" data-dtype="Number" value="{{data.vehicle.speed.value}}" onfocus="this.select()"/>
               <a><i class="fas fa-plus"></i></a>
             </div>
             <div class="gauge" style="width:140px">
@@ -20,9 +20,9 @@
                 <span class="tick tick-speedo"></span>
               {{/times}}
               <span
-                {{!-- TODO style="transform:rotate({{speedAngle _}}deg)" :: -88deg to 88deg range. calc with -88 + (% of max * 176). --}}
+                style="transform:rotate({{angle "speed" data.vehicle.speed}}deg)"
                 class="needle
-                  {{#if (cond ">" data.vehicle.speed.current data.vehicle.speed.max)}}
+                  {{#if (cond ">" data.vehicle.speed.value data.vehicle.speed.max)}}
                     pushed
                   {{/if}}"
               ></span>
@@ -34,7 +34,7 @@
         <td>
           <div class="tsl-speed-conversion">
             <span>MPH</span>
-            <span>{{convert "mph" data.vehicle.speed.current}}</span>
+            <span>{{convert "mph" data.vehicle.speed.value}}</span>
             <span>/</span>
             <span>{{convert "mph" data.vehicle.speed.max}}</span>
           </div>
@@ -44,7 +44,7 @@
         <td>
           <div class="tsl-speed-conversion">
             <span>KPH</span>
-            <span>{{convert "kph" data.vehicle.speed.current}}</span>
+            <span>{{convert "kph" data.vehicle.speed.value}}</span>
             <span>/</span>
             <span>{{convert "kph" data.vehicle.speed.max}}</span>
           </div>
@@ -54,7 +54,7 @@
         <td>
           <div class="tsl-speed-conversion">
             <span>SPR</span>
-            <span>{{convert "spr" data.vehicle.speed.current}}</span>
+            <span>{{convert "spr" data.vehicle.speed.value}}</span>
             <span>/</span>
             <span>{{convert "spr" data.vehicle.speed.max}}</span>
           </div>

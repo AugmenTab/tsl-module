@@ -24,8 +24,8 @@
                 class="fuel-light {{fuelClass data.vehicle.hoursOfOperation}}"
               />
               <span
+                style="transform:rotate({{angle "fuel" data.vehicle.hoursOfOperation}}deg)"
                 class="needle"
-                {{!-- style="transform:rotate({{fuelAngle _}}deg)" --}}
               ></span>
             </div>
           </div>

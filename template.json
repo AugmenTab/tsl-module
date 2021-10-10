@@ -132,8 +132,8 @@
     }
   
   , "speed":
-    { "current": 0
-    , "value": 0
+    { "value": 0
+    , "max": 0
     }
   
   , "stats":

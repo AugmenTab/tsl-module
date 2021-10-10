@@ -8,7 +8,7 @@
  * @returns {number} The angle of rotation for the gauge needle element.
  */
 Handlebars.registerHelper("angle", function(gauge, obj) {
-  const percent = obj.current / obj.max;
+  const percent = obj.value / obj.max;
   switch(gauge) {
     case "fuel":  return ((percent > 1 ? 1 : percent) * 120) - 60;
     case "speed": return ((percent > 1 ? 1 : percent) * 176) - 88;
