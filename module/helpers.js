@@ -64,11 +64,20 @@ Handlebars.registerHelper("convert", function(to, val) {
 });
 
 /**
+ * Determines which classes to use for the fuel gauge indicator light element.
+ * @param {object} obj - The Hours of Operation TSL Vehicle Actor data object.
+ * @returns {string} The `class` HTML attribute value.
+ */
+Handlebars.registerHelper("fuelClass", function(obj) {
+  return obj.value > (obj.max / 4) ? "dim" : "glow-red";
+});
+
+/**
  * Translates a number into a string representation of that number in the local format.
  * @param {number} num - The number to be converted.
  * @returns {string} The string representing the provided number in local format.
  */
- Handlebars.registerHelper("localnum", function(num) {
+Handlebars.registerHelper("localnum", function(num) {
   return typeof(num) === "number" ? num.toLocaleString() : num;
 });
 
@@ -78,7 +87,7 @@ Handlebars.registerHelper("convert", function(to, val) {
  * @param {Block} block - The Handlebars block.
  * @returns {string} A string of the repeated HTML code.
  */
- Handlebars.registerHelper("times", function(n, block) {
+Handlebars.registerHelper("times", function(n, block) {
   let accum = "";
   for (let i = 0; i < n; i++) accum += block.fn(i);
   return accum;
