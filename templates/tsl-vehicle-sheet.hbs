@@ -149,7 +149,7 @@
           <tbody>
             <tr>
               <td style="height:171px">
-                <textarea style="height:100%" name="" placeholder="{{localize "tsl.componentsPage.notesPlaceholder"}}"></textarea>
+                <textarea style="height:100%" name="data.vehicle.notes.components" placeholder="{{localize "tsl.componentsPage.notesPlaceholder"}}">{{data.vehicle.notes.components}}</textarea>
               </td>
             </tr>
           </tbody>
@@ -167,12 +167,12 @@
       <div class="tsl-cargo-totals">
         <div class="crew-weight">
           <h3><b>{{localize "tsl.cargoPage.crewWeight"}}:</b></h3>
-          <input style="width:100px" name="" type="number" data-dtype="Number" value=""/>
+          <input style="width:100px" name="data.vehicle.weight.crew" type="number" data-dtype="Number" value="{{data.vehicle.weight.crew}}"/>
           <h3>lbs</h3>
         </div>
         <h3>
           <b>{{localize "tsl.cargoPage.cargoWeight"}}:&nbsp;</b>
-          0&nbsp;lbs
+          {{localnum data.vehicle.weight.cargo}}&nbsp;lbs
         </h3>
       </div>
       <table class="tsl-cargo-table">
@@ -212,12 +212,12 @@
           </tr>
         </tbody>
       </table>
-      <textarea name="" placeholder="{{localize "tsl.cargoPage.notes"}}"></textarea>
+      <textarea name="data.vehicle.notes.cargo" placeholder="{{localize "tsl.cargoPage.notes"}}">{{data.vehicle.notes.cargo}}</textarea>
     </div>
 
     {{!-- Notes --}}
     <div class="tab" data-group="primary" data-tab="notes">
-      {{editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=true}}
+      {{editor content=data.vehicle.notes.character target="data.vehicle.notes.character" button=true owner=owner editable=true}}
     </div>
   </section>
 </form>
