@@ -69,7 +69,7 @@ Handlebars.registerHelper("convert", function(to, val) {
  * @returns {string} The string representing the provided number in local format.
  */
  Handlebars.registerHelper("localnum", function(num) {
-  return num.toLocaleString();
+  return typeof(num) === "number" ? num.toLocaleString() : num;
 });
 
 /**
