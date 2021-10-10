@@ -53,7 +53,14 @@
       {{> "modules/tsl-module/templates/partials/tsl-core-stats.hbs"}}
       <div class="tsl-picture-row">
         {{> "modules/tsl-module/templates/partials/tsl-summary-leftpane.hbs"}}
-        <div style="background:blue"></div>
+        <img
+          {{#if (cond "||" (eq data.vehicle.type "none") (eq data.vehicle.classification "none"))}}
+            alt="No vehicle." src="modules/tsl-module/img/none.png"
+          {{else}}
+            alt="{{localize (concat "tsl.vehicleTypes." data.vehicle.type)}}&nbsp;{{localize (concat "tsl.classifications." data.vehicle.classification)}}"
+            src="modules/tsl-module/img/{{data.vehicle.type}}-{{data.vehicle.classification}}.png"
+          {{/if}}
+        />
         {{> "modules/tsl-module/templates/partials/tsl-summary-rightpane.hbs"}}
       </div>
       <div class="tsl-final-row">
