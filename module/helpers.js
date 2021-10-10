@@ -46,7 +46,25 @@ Handlebars.registerHelper("cond", function(...var_args) {
 });
 
 /**
- * Translated a number into a string representation of that number in the local format.
+ * Convert a Sp value to mph, kph, or spr.
+ * @param {string} to - The target unit of speed.
+ * @param {number} val - The Sp value to be converted.
+ */
+Handlebars.registerHelper("convert", function(to, val) {
+  if (!val) {
+    return 0;
+  } else {
+    let mph = (val * 2) + 40;
+    switch(to) {
+      case "mph": return mph.toLocaleString();
+      case "kph": return Math.floor(mph * 1.6093440).toLocaleString();
+      case "spr": return Math.floor((mph * 88) / 30).toLocaleString();
+    }
+  }
+});
+
+/**
+ * Translates a number into a string representation of that number in the local format.
  * @param {number} num - The number to be converted.
  * @returns {string} The string representing the provided number in local format.
  */
