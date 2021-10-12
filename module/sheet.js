@@ -1,3 +1,5 @@
+import { calculateVehicleData } from "./calculations.js";
+
 export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   get template() {
     return "modules/tsl-module/templates/tsl-vehicle-sheet.hbs";
@@ -20,7 +22,6 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
 
   getData() {
     const data = super.getData();
-    data.config = CONFIG.tsl;
     return data;
   }
 
@@ -33,3 +34,7 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     super.activateListeners(html);
   }
 }
+
+Hooks.on("updateActor", (actor) => {
+  calculateVehicleData(actor);
+});

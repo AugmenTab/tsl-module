@@ -22,7 +22,7 @@
               <span
                 style="transform:rotate({{angle "speed" data.vehicle.speed}}deg)"
                 class="needle
-                  {{#if (cond ">" data.vehicle.speed.value data.vehicle.speed.max)}}
+                  {{#if (gt data.vehicle.speed.value data.vehicle.speed.max)}}
                     pushed
                   {{/if}}"
               ></span>
