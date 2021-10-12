@@ -27,6 +27,7 @@ Handlebars.registerHelper("concat", function() {
       str += arguments[arg];
     }
   }
+  console.log(str);
   return str;
 });
 
@@ -94,6 +95,19 @@ Handlebars.registerHelper("fuelClass", function(obj) {
  */
 Handlebars.registerHelper("localnum", function(num) {
   return typeof(num) === "number" ? num.toLocaleString() : num;
+});
+
+/**
+ * Writes the inner HTML for the Transmission Po field.
+ * @param {object} obj - The transmission component stat object.
+ * @returns {string} The inner HTML for the Transmission Po field.
+ */
+Handlebars.registerHelper("po", function(obj) {
+  if (obj.fluid <= 0) {
+    return `${obj.base}`;
+  } else {
+    return `${Math.min(obj.base, obj.fluid)} / ${Math.max(obj.base, obj.fluid)}`;
+  }
 });
 
 /**
