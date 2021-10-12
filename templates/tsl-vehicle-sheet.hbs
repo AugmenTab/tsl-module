@@ -90,10 +90,12 @@
     {{!-- Components --}}
     <div class="tab" data-group="primary" data-tab="components">
       <div class="tsl-components-row">
+        {{#each data.vehicle.components as |value key|}}
+        {{log value}}
         <table>
           <thead>
             <tr>
-              <th colspan="4"># COMPONENT LABEL #</th>
+              <th colspan="4">{{localize (concat "tsl.components." (concat key ".label"))}}</th>
             </tr>
           </thead>
           <thead>
@@ -105,8 +107,16 @@
           </thead>
           <tbody>
             <tr>
-              <th style="width:85px"># STAT #</th>
-              <td style="font-size:1.25em"><b>31,000,000</b></td>
+              <th style="width:85px">{{localize (concat "tsl.components." (concat key ".stat"))}}</th>
+              <td style="font-size:1.25em">
+                <b>
+                  {{#unless (eq key "transmission")}}
+                    {{value.stat.total}}
+                  {{else}}
+                    {{po value.stat}}
+                  {{/unless}}
+                </b>
+              </td>
               <td><input style="width:50px" type="number" data-dtype="Number"/></td>
               <td><input style="width:50px" type="number" data-dtype="Number"/></td>
             </tr>
@@ -129,17 +139,32 @@
           </tbody>
           <thead>
             <tr>
-              <th colspan="2"># PRIMARY #</th>
-              <th colspan="2"># SECONDARY #</th>
+              {{#unless (eq key "transmission")}}
+                <th colspan="2">
+                  {{localize (concat "tsl.components." (concat key ".primary"))}}
+                </th>
+                <th colspan="2">
+                  {{localize (concat "tsl.components." (concat key ".secondary"))}}
+                </th>
+              {{else}}
+                <th colspan="4">
+                  {{localize (concat "tsl.components." (concat key ".primary"))}}
+                </th>
+              {{/unless}}
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td colspan="2"><input style="width:50px" type="number" data-dtype="Number"/></td>
-              <td colspan="2"><input style="width:50px" type="number" data-dtype="Number"/></td>
+              {{#unless (eq key "transmission")}}
+                <td colspan="2"><input style="width:50px" type="number" data-dtype="Number"/></td>
+                <td colspan="2"><input style="width:50px" type="number" data-dtype="Number"/></td>
+              {{else}}
+                <td colspan="4"><input style="width:50px" type="number" data-dtype="Number"/></td>
+              {{/unless}}
             </tr>
           </tbody>
         </table>
+        {{/each}}
         <table>
           <thead>
             <tr>
