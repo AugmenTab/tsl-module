@@ -119,6 +119,90 @@
     </thead>
     <tbody>
       <tr>
+        {{#if (eq key "engine")}}
+          <td colspan="2">
+            <select name="data.vehicle.components.{{key}}.primary">
+              {{#select value.primary}}
+                <option value="none">{{localize "tsl.primaries.label"}}</option>
+                <option value="steam">{{localize "tsl.primaries.engine.steam"}}</option>
+                <option value="guzzolene">{{localize "tsl.primaries.engine.guzzolene"}}</option>
+                <option value="diesel">{{localize "tsl.primaries.engine.diesel"}}</option>
+                <option value="arcanomotor">{{localize "tsl.primaries.engine.arcanomotor"}}</option>
+                <option value="crystal">{{localize "tsl.primaries.engine.crystal"}}</option>
+                <option value="elemental">{{localize "tsl.primaries.engine.elemental"}}</option>
+                <option value="tourbillon">{{localize "tsl.primaries.engine.tourbillon"}}</option>
+              {{/select}}
+            </select>
+          </td>
+          <td colspan="2">
+            <input style="width:150px" name="data.vehicle.components.{{key}}.secondary" type="text" value="{{value.secondary}}"/>
+          </td>
+        {{else if (eq key "transmission")}}
+          <td colspan="4">
+            <select name="data.vehicle.components.{{key}}.primary">
+              {{#select value.primary}}
+                <option value="none">{{localize "tsl.primaries.label"}}</option>
+                <option value="manual">{{localize "tsl.primaries.transmission.manual"}}</option>
+                <option value="sequential">{{localize "tsl.primaries.transmission.sequential"}}</option>
+                <option value="horlogian">{{localize "tsl.primaries.transmission.horlogian"}}</option>
+                <option value="spectrum">{{localize "tsl.primaries.transmission.spectrum"}}</option>
+                <option value="torqueConverter">{{localize "tsl.primaries.transmission.torqueConverter"}}</option>
+              {{/select}}
+            </select>
+          </td>
+        {{else if (eq key "chassis")}}
+          <td colspan="2">
+            <select name="data.vehicle.components.{{key}}.primary">
+              {{#select value.primary}}
+                <option value="none">{{localize "tsl.primaries.label"}}</option>
+                <option value="fwd">{{localize "tsl.primaries.chassis.fwd"}}</option>
+                <option value="rwd">{{localize "tsl.primaries.chassis.rwd"}}</option>
+                <option value="awd">{{localize "tsl.primaries.chassis.awd"}}</option>
+              {{/select}}
+            </select>
+          </td>
+          <td colspan="2">
+            <select name="data.vehicle.components.{{key}}.secondary">
+              {{#select value.secondary}}
+                <option value="none">{{localize "tsl.secondaries.label"}}</option>
+                <option value="wheels">{{localize "tsl.secondaries.chassis.wheels"}}</option>
+                <option value="rail">{{localize "tsl.secondaries.chassis.rail"}}</option>
+                <option value="pedrail">{{localize "tsl.secondaries.chassis.pedrail"}}</option>
+                <option value="tracks">{{localize "tsl.secondaries.chassis.tracks"}}</option>
+                <option value="screw">{{localize "tsl.secondaries.chassis.screw"}}</option>
+              {{/select}}
+            </select>
+          </td>
+        {{else if (eq key "suspension")}}
+          <td colspan="2">
+            <select name="data.vehicle.components.{{key}}.primary">
+              {{#select value.primary}}
+                <option value="none">{{localize "tsl.primaries.label"}}</option>
+                <option value="dependent">{{localize "tsl.primaries.suspension.dependent"}}</option>
+                <option value="mixed">{{localize "tsl.primaries.suspension.mixed"}}</option>
+                <option value="independent">{{localize "tsl.primaries.suspension.independent"}}</option>
+              {{/select}}
+            </select>
+          </td>
+          <td colspan="2">
+            <select name="data.vehicle.components.{{key}}.secondary">
+              {{#select value.secondary}}
+                <option value="none">{{localize "tsl.secondaries.label"}}</option>
+                <option value="mechanical">{{localize "tsl.secondaries.suspension.mechanical"}}</option>
+                <option value="hydraulic">{{localize "tsl.secondaries.suspension.hydraulic"}}</option>
+                <option value="pneumatic">{{localize "tsl.secondaries.suspension.pneumatic"}}</option>
+                <option value="magical">{{localize "tsl.secondaries.suspension.magical"}}</option>
+              {{/select}}
+            </select>
+          </td>
+        {{else if (eq key "body")}}
+          <td colspan="2">
+            <input style="width:140px" name="data.vehicle.components.{{key}}.primary" type="text" value="{{value.primary}}"/>
+          </td>
+          <td colspan="2">
+            <input style="width:160px" name="data.vehicle.components.{{key}}.secondary" type="text" value="{{value.secondary}}"/>
+          </td>
+        {{/if}}
       </tr>
     </tbody>
   </table>

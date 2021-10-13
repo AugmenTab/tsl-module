@@ -119,19 +119,50 @@
     }
     
     , "primaries":
-    { "engine": {}
-    , "transmission": {}
-    , "chassis": {}
-    , "suspension": {}
-    , "body": {}
+    { "label": "-- Select Primary --"
+    , "engine":
+      { "steam": "Steam"
+      , "guzzolene": "Guzzolene"
+      , "diesel": "Diesel"
+      , "arcanomotor": "Arcanomotor"
+      , "crystal": "Crystal Engine"
+      , "elemental": "Elemental"
+      , "tourbillon": "Tourbillon"
+      }
+    , "transmission":
+      { "manual": "Manual"
+      , "sequential": "Sequential"
+      , "horlogian": "Horlogian"
+      , "spectrum": "Spectrum"
+      , "torqueConverter": "Torque Converter"
+      }
+    , "chassis":
+      { "fwd": "FWD"
+      , "rwd": "RWD"
+      , "awd": "AWD"
+      }
+    , "suspension":
+      { "dependent": "Dependent"
+      , "mixed": "Mixed Dependency"
+      , "independent": "Fully Independent"
+      }
     }
     
     , "secondaries":
-    { "engine": {}
-    , "transmission": {}
-    , "chassis": {}
-    , "suspension": {}
-    , "body": {}
+    { "label": "-- Select Secondary --"
+    , "chassis":
+      { "wheels": "Wheels"
+      , "rail": "Rail"
+      , "pedrail": "Pedrail"
+      , "tracks": "Tracks"
+      , "screw": "Screw"
+      }
+    , "suspension":
+      { "mechanical": "Mechanical"
+      , "hydraulic": "Hydraulic"
+      , "pneumatic": "Pneumatic"
+      , "magical": "Magical"
+      }
     }
   }
 }
