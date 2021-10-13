@@ -35,7 +35,16 @@
           {{#unless (eq key "transmission")}}
             <input style="width:50px" name="data.vehicle.components.{{key}}.stat.mods" type="number" data-dtype="Number" value="{{value.stat.mods}}"/>
           {{else}}
-            <input style="width:50px" name="data.vehicle.components.{{key}}.stat.fluid" type="number" data-dtype="Number" value="{{value.stat.fluid}}"/>
+            <input
+              style="width:50px"
+              name="data.vehicle.components.{{key}}.stat.fluid"
+              type="number"
+              data-dtype="Number"
+              value="{{value.stat.fluid}}"
+              {{#unless (cond "||" (eq value.primary "spectrum") (eq value.primary "torqueConverter"))}}
+                disabled="true"
+              {{/unless}}
+            />
           {{/unless}}
         </td>
       </tr>
