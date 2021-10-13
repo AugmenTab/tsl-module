@@ -217,6 +217,20 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       column-gap: 8px;
+
+      .body-stats-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 8px;
+        place-items: center;
+        
+        .body-stats {
+          display: grid;
+          grid-template-columns: repeat(4, auto);
+          place-items: center;
+          column-gap: 6px;
+        }
+      }
     }
 
     .tsl-cargo-totals {

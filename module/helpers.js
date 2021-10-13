@@ -23,11 +23,10 @@ Handlebars.registerHelper("angle", function(gauge, obj) {
 Handlebars.registerHelper("concat", function() {
   let str = "";
   for(let arg in arguments) {
-    if(typeof arguments[arg] != "object") {
+    if (typeof arguments[arg] != "object") {
       str += arguments[arg];
     }
   }
-  console.log(str);
   return str;
 });
 

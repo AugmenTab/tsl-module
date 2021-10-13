@@ -1,0 +1,125 @@
+{{#each data.vehicle.components as |value key|}}
+  <table>
+    <thead>
+      <tr>
+        <th colspan="4">{{localize (concat "tsl.components." (concat key ".label"))}}</th>
+      </tr>
+    </thead>
+    <thead>
+      <tr>
+        <th colspan="2">{{localize "tsl.componentsPage.total"}}</th>
+        <th>{{localize "tsl.componentsPage.base"}}</th>
+        {{#unless (eq key "transmission")}}
+          <th>{{localize "tsl.componentsPage.mods"}}</th>
+        {{else}}
+          <th>{{localize "tsl.componentsPage.fluid"}}</th>
+        {{/unless}}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th style="width:85px">{{localize (concat "tsl.components." (concat key ".stat"))}}</th>
+        <td style="font-size:1.25em">
+          <b>
+            {{#unless (eq key "transmission")}}
+              {{value.stat.total}}
+            {{else}}
+              {{po value.stat}}
+            {{/unless}}
+          </b>
+        </td>
+        <td>
+          <input style="width:50px" name="data.vehicle.components.{{key}}.stat.base" type="number" data-dtype="Number" value="{{value.stat.base}}"/>
+        </td>
+        <td>
+          {{#unless (eq key "transmission")}}
+            <input style="width:50px" name="data.vehicle.components.{{key}}.stat.mods" type="number" data-dtype="Number" value="{{value.stat.mods}}"/>
+          {{else}}
+            <input style="width:50px" name="data.vehicle.components.{{key}}.stat.fluid" type="number" data-dtype="Number" value="{{value.stat.fluid}}"/>
+          {{/unless}}
+        </td>
+      </tr>
+    </tbody>
+    {{#if (eq key "body")}}
+      <thead>
+        <tr>
+          <th colspan="2">{{localize "tsl.components.body.hp"}}</th>
+          <th colspan="2">{{localize "tsl.components.body.armor"}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4">
+            <div class="body-stats-container">
+              <div class="body-stats">
+                <span style="font-size:1.25em">
+                  <b>{{value.hp.total}}</b>
+                </span>
+                <span>&equals;</span>
+                <span>
+                  <input style="width:50px" name="data.vehicle.components.{{key}}.hp.base" type="number" data-dtype="Number" value="{{value.hp.base}}"/>
+                </span>
+                <span>
+                  <input style="width:50px" name="data.vehicle.components.{{key}}.hp.mods" type="number" data-dtype="Number" value="{{value.hp.mods}}"/>
+                </span>
+              </div>
+              <div class="body-stats">
+                <span style="font-size:1.25em">
+                  <b>{{value.armor.total}}</b>
+                </span>
+                <span>&equals;</span>
+                <span>
+                  <input style="width:50px" name="data.vehicle.components.{{key}}.armor.base" type="number" data-dtype="Number" value="{{value.armor.base}}"/>
+                </span>
+                <span>
+                  <input style="width:50px" name="data.vehicle.components.{{key}}.armor.mods" type="number" data-dtype="Number" value="{{value.armor.mods}}"/>
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    {{else}}
+      <thead>
+        <tr>
+          <th></th>
+          <th>{{localize "tsl.componentsPage.total"}}</th>
+          <th>{{localize "tsl.componentsPage.base"}}</th>
+          <th>{{localize "tsl.componentsPage.resist"}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>{{localize "tsl.componentsPage.integrity"}}</th>
+          <td style="font-size:1.25em"><b>{{value.integrity.total}}</b></td>
+          <td>
+            <input style="width:50px" name="data.vehicle.components.{{key}}.integrity.base" type="number" data-dtype="Number" value="{{value.integrity.base}}"/>
+          </td>
+          <td>
+            <input style="width:50px" name="data.vehicle.components.{{key}}.integrity.resist" type="number" data-dtype="Number" value="{{value.integrity.resist}}"/>
+          </td>
+        </tr>
+      </tbody>
+    {{/if}}
+    <thead>
+      <tr>
+        {{#unless (eq key "transmission")}}
+          <th colspan="2">
+            {{localize (concat "tsl.components." (concat key ".primary"))}}
+          </th>
+          <th colspan="2">
+            {{localize (concat "tsl.components." (concat key ".secondary"))}}
+          </th>
+        {{else}}
+          <th colspan="4">
+            {{localize (concat "tsl.components." (concat key ".primary"))}}
+          </th>
+        {{/unless}}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      </tr>
+    </tbody>
+  </table>
+{{/each}}

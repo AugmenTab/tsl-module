@@ -44,7 +44,6 @@
     , "temp": "TEMP"
     , "mods": "MODS"
     , "ld": "LD"
-    , "fluid": "FLUID"
     , "currentSpeed": "CURRENT SPEED"
     , "hitPoints": "HIT POINTS"
     , "curbWeight": "CURB WEIGHT"
@@ -58,6 +57,7 @@
     { "total": "TOTAL"
     , "base": "BASE"
     , "mods": "MODS"
+    , "fluid": "FLUID"
     , "integrity": "INTEGRITY"
     , "resist": "RESIST"
     , "notesLabel": "COMPONENTS NOTES"
@@ -111,9 +111,27 @@
     , "body":
       { "label": "BODY"
       , "stat": "WEIGHT"
+      , "hp": "HP"
+      , "armor": "ARMOR"
       , "primary": "STYLE"
       , "secondary": "CREW"
       }
+    }
+    
+    , "primaries":
+    { "engine": {}
+    , "transmission": {}
+    , "chassis": {}
+    , "suspension": {}
+    , "body": {}
+    }
+    
+    , "secondaries":
+    { "engine": {}
+    , "transmission": {}
+    , "chassis": {}
+    , "suspension": {}
+    , "body": {}
     }
   }
 }

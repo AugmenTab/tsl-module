@@ -33,7 +33,8 @@ export function calculateVehicleData(actor) {
 
     , "transmission":
       { "stat":
-        { "base": 0
+        { "display": "0"
+        , "base": 0
         , "fluid": 0
         }
       , "integrity":
@@ -76,7 +77,7 @@ export function calculateVehicleData(actor) {
       }
 
     , "body":
-      { "weight":
+      { "stat":
         { "base": 0
         , "mods": 0
         , "total": 0
