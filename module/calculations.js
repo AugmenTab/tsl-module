@@ -125,21 +125,50 @@ function setComponentBody(component) {
   
 }
 
-function setComponentTransmission() {
-  { "stat":
-    { "display": "0"
-    , "base": 0
-    , "fluid": 0
-    }
-  , "integrity":
-    { "base": 0
-    , "total": 0
-    , "resist": 0
-    }
-  , "primary": ""
-  , "secondary": ""
+function setComponentTransmission(trans) {
+  let primary = trans.primary || "none";
+  let integrity = setComponentValueIntegrity(trans.integrity);
+
+  let base = trans.stat.base || 0;
+  let fluid = trans.stat.fluid || 0;
+
+  if (base < 0) {
+    base = 0;
+  } else if (base > 10) {
+    base = 10;
   }
-  
+
+  if (!["spectrum", "torqueConverter"].includes(primary)) {
+    fluid = 0;
+  } else if (primary === "spectrum" && fluid > 3) {
+    fluid = 3;
+  } else if (primary === "torqueConverter" && fluid > 10) {
+    fluid = 10;
+  } else if (fluid < 0) {
+    fluid = 0;
+  }
+
+  let display;
+  if (primary === "spectrum") {
+    display = `${base} &#8605; ${fluid}`;
+  } else if (primary === "torqueConverter") {
+    display = `${Math.min(base, fluid)} &rHar; ${Math.max(base, fluid)}`;
+  } else {
+    display = String(base);
+  }
+
+  let stat =
+  { "base": base
+  , "fluid": fluid
+  , "display": display
+  };
+
+  let newTrans =
+  { "stat": stat
+  , "integrity": integrity
+  , "primary": primary
+  };
+  return newTrans;
 }
 
 function setComponentValueIntegrity(integrity) {
