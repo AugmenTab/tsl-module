@@ -169,10 +169,10 @@ function setComponentValueStat(stat, totalIntegrity) {
 
 function setVehicleBase(vehicle) {
   let base =
-    { "size": vehicle.base || "none"
-    , "type": vehicle.type || "none"
-    , "class": vehicle.class || "none"
-    , "pilot": vehicle.pilot || ""
+    { "size": vehicle.base.size || "none"
+    , "type": vehicle.base.type || "none"
+    , "class": vehicle.base.class || "none"
+    , "pilot": vehicle.base.pilot || ""
     };
   return base;
 }
@@ -229,12 +229,13 @@ function setVehicleDerivedStats(components, stats, weight) {
   , "total": torqueBase + temps.torqueBase
   };
   
-  // let xlr8Base = ;
-  // let newXlr8 =
-  // { "base": xlr8Base
-  // , "mods": temps.xlr8
-  // , "total": xlr8Base + temps.xlr8
-  // };
+  // TODO: Needs a new formula for calculating XLR8.
+  let xlr8Base = 0;
+  let newXlr8 =
+  { "base": xlr8Base
+  , "temp": temps.xlr8
+  , "total": xlr8Base + temps.xlr8
+  };
   
   let turningBase = Math.ceil((newTopSpeed.total + newLoad.total) / re);
   let newTurning =
@@ -243,11 +244,13 @@ function setVehicleDerivedStats(components, stats, weight) {
   , "total": turningBase + temps.turning
   };
 
-  // let newStopping =
-  // { "base": 0
-  // , "temp": 0
-  // , "total": 0
-  // };
+  // TODO: Needs a new formula for calculating Stopping.
+  let stoppingBase = 0;
+  let newStopping =
+  { "base": stoppingBase
+  , "temp": temps.stopping
+  , "total": stoppingBase + temps.stopping
+  };
 
   let newDerivedStats =
   { "topSpeed": newTopSpeed
