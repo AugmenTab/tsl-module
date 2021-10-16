@@ -4,6 +4,18 @@ export function calculateVehicleData(actor) {
   data.data.vehicle.base = setVehicleBase(actor.data.data.vehicle);
   data.data.vehicle.modifications = setVehicleMods(actor.data.data.vehicle);
   data.data.vehicle.components = setVehicleComponents(actor.data.data.vehicle);
+  data.data.vehicle.weight = setVehicleWeight(
+    actor.data.data.vehicle, data.data.vehicle.components.body.stat.total
+  );
+  data.data.vehicle.hp = setVehicleHitPoints(
+    actor.data.data.vehicle, data.data.vehicle.components.body.hp.total
+  );
+  
+  let components = data.data.vehicle.components;
+  let weight = data.data.vehicle.weight.curb;
+  data.data.vehicle.stats = setVehicleDerivedStats(
+    components, actor.data.data.vehicle.stats, weight
+  );
 
   let todo =
   { "ac":
@@ -26,13 +38,6 @@ export function calculateVehicleData(actor) {
     , "ldPen": 0
     , "temp": 0
     }
-
-  , "hp":
-    { "value": 0
-    , "max": 0
-    , "base": 0
-    , "mods": 0
-    }
     
   , "rammingDamage":
     { "base": 0
@@ -42,50 +47,6 @@ export function calculateVehicleData(actor) {
   
   , "speed":
     { "max": 0
-    }
-  
-  , "stats":
-    { "topSpeed":
-      { "base": 0
-      , "temp": 0
-      , "total": 0
-      }
-      
-    , "torque":
-      { "base": 0
-      , "temp": 0
-      , "total": 0
-      }
-      
-    , "xlr8":
-      { "base": 0
-      , "mods": 0
-      , "total": 0
-      }
-      
-    , "turning":
-      { "base": 0
-      , "temp": 0
-      , "total": 0
-      }
-      
-    , "brakes":
-      { "base": 0
-      , "temp": 0
-      , "total": 0
-      }
-      
-    , "load":
-      { "base": 0
-      , "temp": 0
-      , "total": 0
-      }
-    }
-  
-  , "weight":
-    { "cargo": 0.0
-    , "crew": 0.0
-    , "curb": 0.0
     }
   };
   actor.update(data);
@@ -227,6 +188,97 @@ function setVehicleComponents(vehicle) {
   return components;
 }
 
+function setVehicleDerivedStats(components, stats, weight) {
+  let ho = components.engine.stat.total;
+  let po = components.transmission.stat.base;
+  let fl = components.transmission.stat.fluid;
+  let br = components.chassis.stat.total;
+  let re = components.suspension.stat.total;
+
+  let transType = components.transmission.primary;
+  let speedPo = transType === "torqueConverter" ? Math.min(po, fl) : po; 
+  let torquePo = transType === "torqueConverter" ? Math.max(po, fl) : po;
+
+  let temps =
+  { "topSpeed": stats.topSpeed.temp || 0
+  , "torque": stats.torque.temp || 0
+  , "xlr8": stats.xlr8.temp || 0
+  , "turning": stats.turning.temp || 0
+  , "brakes": stats.brakes.temp || 0
+  , "load": stats.load.temp || 0
+  };
+
+  let loadBase = Math.ceil(weight / 200);
+  let newLoad =
+  { "base": loadBase
+  , "temp": temps.load
+  , "total": loadBase + temps.load
+  };
+
+  let topSpeedBase = (11 - speedPo) * ho;
+  let newTopSpeed =
+  { "base": topSpeedBase
+  , "temp": temps.topSpeed
+  , "total": topSpeedBase + temps.topSpeed
+  };
+
+  let torqueBase = ho * torquePo * 10;
+  let newTorque =
+  { "base": torqueBase
+  , "temp": temps.torque
+  , "total": torqueBase + temps.torqueBase
+  };
+  
+  // let xlr8Base = ;
+  // let newXlr8 =
+  // { "base": xlr8Base
+  // , "mods": temps.xlr8
+  // , "total": xlr8Base + temps.xlr8
+  // };
+  
+  let turningBase = Math.ceil((newTopSpeed.total + newLoad.total) / re);
+  let newTurning =
+  { "base": turningBase
+  , "temp": temps.turning
+  , "total": turningBase + temps.turning
+  };
+
+  // let newStopping =
+  // { "base": 0
+  // , "temp": 0
+  // , "total": 0
+  // };
+
+  let newDerivedStats =
+  { "topSpeed": newTopSpeed
+  , "torque": newTorque
+  , "xlr8": newXlr8
+  , "turning": newTurning
+  , "stopping": newStopping
+  , "load": newLoad
+  };
+  return newDerivedStats;
+}
+
+function setVehicleHitPoints(vehicle, hpTotal) {
+  let base = hpTotal;
+  let mods = vehicle.hp.mods || 0;
+
+  let value = vehicle.hp.value || 0;
+  let max = base + mods;
+
+  if (max < 0) max = 0;
+  if (value > max) value = max;
+
+  let newHitPoints =
+  { "value": value
+  , "max": max
+  , "base": base
+  , "mods": mods
+  }
+  return newHitPoints;
+}
+
 function setVehicleMods(vehicle) {
   return vehicle.modifications || [];
 }
@@ -239,4 +291,19 @@ function setVehicleNotes(vehicle) {
   , "modifications": vehicle.notes.modifications || ""
   };
   return notes;
+}
+
+function setVehicleWeight(vehicle, bodyWeight) {
+  let cargo = vehicle.weight.cargo || 0.0;
+  let crew = vehicle.weight.crew || 0.0;
+
+  if (cargo < 0) cargo = 0.0;
+  if (crew < 0) crew = 0.0;
+
+  let newWeight =
+  { "cargo": cargo
+  , "crew": crew
+  , "curb": bodyWeight + cargo + crew
+  };
+  return newWeight;
 }
