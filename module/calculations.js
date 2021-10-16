@@ -103,26 +103,15 @@ function setCommonComponent(component) {
   return newComponent;  
 }
 
-function setComponentBody(component) {
-  { "stat":
-    { "base": 0
-    , "mods": 0
-    , "total": 0
-    }
-  , "armor":
-    { "base": 0
-    , "mods": 0
-    , "total": 0
-    }
-  , "hp":
-    { "base": 0
-    , "mods": 0
-    , "total": 0
-    }
-  , "primary": ""
-  , "secondary": ""
-  }
-  
+function setComponentBody(body) {
+  let newBody =
+  { "stat": setComponentValueStat(body.stat, 1)
+  , "armor": setComponentValueStat(body.armor, 1)
+  , "hp": setComponentValueStat(body.hp, 1)
+  , "primary": body.primary || ""
+  , "secondary": body.secondary || ""
+  };
+  return newBody;
 }
 
 function setComponentTransmission(trans) {
