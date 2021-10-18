@@ -14,7 +14,7 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
         {
           navSelector: ".tslv-tabs",
           contentSelector: ".tslv-sheet-body",
-          initial: "components"
+          initial: "summary"
         }
       ]
     });

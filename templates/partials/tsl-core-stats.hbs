@@ -1,4 +1,5 @@
 <div class="tsl-core-stats">
+  {{!-- Top Speed --}}
   <table style="width:100px">
     <thead>
       <tr>
@@ -7,7 +8,34 @@
     </thead>
     <tbody>
       <tr style="height:60px">
-        <td colspan="2" style="font-size:2em">{{localnum 15500}}</td>
+        {{#if (eq data.vehicle.components.body.stat.base 0)}}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/body.svg"/>
+          </td>
+        {{else if (cond "||" 
+                       (eq data.vehicle.components.engine.stat.base 0)
+                       (eq data.vehicle.components.engine.integrity.base 0))
+        }}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/engine.svg"/>
+          </td>
+        {{else if (cond "||" 
+                      (eq data.vehicle.components.transmission.stat.base 0)
+                      (eq data.vehicle.components.transmission.integrity.base 0)
+                      (cond "&&" 
+                        (eq data.vehicle.components.transmission.stat.fluid 0)
+                        (cond "||"
+                          (eq data.vehicle.components.transmission.primary "torqueConverter")
+                          (eq data.vehicle.components.transmission.primary "spectrum"))))
+        }}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/transmission.svg"/>
+          </td>
+        {{else}}
+          <td colspan="2" style="font-size:2em">
+            {{data.vehicle.stats.topSpeed.total}}
+          </td>
+        {{/if}}
       </tr>
     </tbody>
     <thead>
@@ -18,13 +46,108 @@
     </thead>
     <tbody>
       <tr style="height:38px">
-        <td>{{localnum 15500}}</td>
         <td>
-          <input style="width:40px" name="data.stats.topSpeed.temp" type="number" data-dtype="Number" value="{{data.stats.topSpeed.temp}}" onfocus="this.select()"/>
+          {{#if (cond "||"
+            (eq data.vehicle.components.body.stat.base 0)
+            (eq data.vehicle.components.engine.stat.base 0)
+            (eq data.vehicle.components.engine.integrity.base 0)
+            (eq data.vehicle.components.transmission.stat.base 0)
+            (eq data.vehicle.components.transmission.integrity.base 0)
+            (eq data.vehicle.components.transmission.stat.base 0)
+            (eq data.vehicle.components.transmission.integrity.base 0)
+            (cond "&&" 
+              (eq data.vehicle.components.transmission.stat.fluid 0)
+              (cond "||"
+                (eq data.vehicle.components.transmission.primary "torqueConverter")
+                (eq data.vehicle.components.transmission.primary "spectrum")))
+          )}}
+            <img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/>
+          {{else}}
+            {{data.vehicle.stats.topSpeed.base}}
+          {{/if}}
+        </td>
+        <td>
+          <input style="width:40px" name="data.vehicle.stats.topSpeed.temp" type="number" data-dtype="Number" value="{{data.vehicle.stats.topSpeed.temp}}" onfocus="this.select()"/>
         </td>
       </tr>
     </tbody>
   </table>
+
+  {{!-- Torque --}}
+  <table style="width:100px">
+    <thead>
+      <tr>
+        <th colspan="2">{{localize "tsl.stats.torque"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height:60px">
+        {{#if (eq data.vehicle.components.body.stat.base 0)}}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/body.svg"/>
+          </td>
+        {{else if (cond "||" 
+                      (eq data.vehicle.components.transmission.stat.base 0)
+                      (eq data.vehicle.components.transmission.integrity.base 0)
+                      (cond "&&" 
+                        (eq data.vehicle.components.transmission.stat.fluid 0)
+                        (cond "||"
+                          (eq data.vehicle.components.transmission.primary "torqueConverter")
+                          (eq data.vehicle.components.transmission.primary "spectrum"))))
+        }}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/transmission.svg"/>
+          </td>
+        {{else if (cond "||" 
+                       (eq data.vehicle.components.engine.stat.base 0)
+                       (eq data.vehicle.components.engine.integrity.base 0))
+        }}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/engine.svg"/>
+          </td>
+        {{else}}
+          <td colspan="2" style="font-size:2em">
+            {{data.vehicle.stats.torque.total}}
+          </td>
+        {{/if}}
+      </tr>
+    </tbody>
+    <thead>
+      <tr>
+        <th>{{localize "tsl.summaryPage.base"}}</th>
+        <th>{{localize "tsl.summaryPage.temp"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="height:38px">
+        <td>
+          {{#if (cond "||"
+            (eq data.vehicle.components.body.stat.base 0)
+            (eq data.vehicle.components.engine.stat.base 0)
+            (eq data.vehicle.components.engine.integrity.base 0)
+            (eq data.vehicle.components.transmission.stat.base 0)
+            (eq data.vehicle.components.transmission.integrity.base 0)
+            (eq data.vehicle.components.transmission.stat.base 0)
+            (eq data.vehicle.components.transmission.integrity.base 0)
+            (cond "&&" 
+              (eq data.vehicle.components.transmission.stat.fluid 0)
+              (cond "||"
+                (eq data.vehicle.components.transmission.primary "torqueConverter")
+                (eq data.vehicle.components.transmission.primary "spectrum")))
+          )}}
+            <img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/>
+          {{else}}
+            {{data.vehicle.stats.torque.base}}
+          {{/if}}
+        </td>
+        <td>
+          <input style="width:40px" name="data.vehicle.stats.torque.temp" type="number" data-dtype="Number" value="{{data.vehicle.stats.torque.temp}}" onfocus="this.select()"/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  {{!-- XLR8 --}}
   <table style="width:100px">
     <thead>
       <tr>
@@ -33,7 +156,34 @@
     </thead>
     <tbody>
       <tr style="height:60px">
-        <td colspan="2"><img class="glow-red" height="48px" src="modules/tsl-module/img/body.svg"/></td>
+        {{#if (eq data.vehicle.components.body.stat.base 0)}}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/body.svg"/>
+          </td>
+        {{else if (cond "||" 
+                      (eq data.vehicle.components.transmission.stat.base 0)
+                      (eq data.vehicle.components.transmission.integrity.base 0)
+                      (cond "&&" 
+                        (eq data.vehicle.components.transmission.stat.fluid 0)
+                        (cond "||"
+                          (eq data.vehicle.components.transmission.primary "torqueConverter")
+                          (eq data.vehicle.components.transmission.primary "spectrum"))))
+        }}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/transmission.svg"/>
+          </td>
+        {{else if (cond "||" 
+                       (eq data.vehicle.components.engine.stat.base 0)
+                       (eq data.vehicle.components.engine.integrity.base 0))
+        }}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/engine.svg"/>
+          </td>
+        {{else}}
+          <td colspan="2" style="font-size:2em">
+            {{data.vehicle.stats.xlr8.total}}
+          </td>
+        {{/if}}
       </tr>
     </tbody>
     <thead>
@@ -44,22 +194,58 @@
     </thead>
     <tbody>
       <tr style="height:38px">
-        <td><img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/></td>
         <td>
-          <input style="width:40px" name="data.stats.xlr8.temp" type="number" data-dtype="Number" value="{{data.stats.xlr8.temp}}" onfocus="this.select()"/>
+          {{#if (cond "||"
+            (eq data.vehicle.components.body.stat.base 0)
+            (eq data.vehicle.components.engine.stat.base 0)
+            (eq data.vehicle.components.engine.integrity.base 0)
+            (eq data.vehicle.components.transmission.stat.base 0)
+            (eq data.vehicle.components.transmission.integrity.base 0)
+            (eq data.vehicle.components.transmission.stat.base 0)
+            (eq data.vehicle.components.transmission.integrity.base 0)
+            (cond "&&" 
+              (eq data.vehicle.components.transmission.stat.fluid 0)
+              (cond "||"
+                (eq data.vehicle.components.transmission.primary "torqueConverter")
+                (eq data.vehicle.components.transmission.primary "spectrum")))
+          )}}
+            <img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/>
+          {{else}}
+            {{data.vehicle.stats.xlr8.base}}
+          {{/if}}
+        </td>
+        <td>
+          <input style="width:40px" name="data.vehicle.stats.xlr8.temp" type="number" data-dtype="Number" value="{{data.vehicle.stats.xlr8.temp}}" onfocus="this.select()"/>
         </td>
       </tr>
     </tbody>
   </table>
+  
+  {{!-- Stopping --}}
   <table style="width:100px">
     <thead>
       <tr>
-        <th colspan="2">{{localize "tsl.stats.xlr8"}}</th>
+        <th colspan="2">{{localize "tsl.stats.stopping"}}</th>
       </tr>
     </thead>
     <tbody>
       <tr style="height:60px">
-        <td colspan="2"><img class="glow-red" height="48px" src="modules/tsl-module/img/engine.svg"/></td>
+        {{#if (eq data.vehicle.components.body.stat.base 0)}}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/body.svg"/>
+          </td>
+        {{else if (cond "||" 
+                      (eq data.vehicle.components.chassis.stat.base 0)
+                      (eq data.vehicle.components.chassis.integrity.base 0))
+        }}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/chassis.svg"/>
+          </td>
+        {{else}}
+          <td colspan="2" style="font-size:2em">
+            {{data.vehicle.stats.stopping.total}}
+          </td>
+        {{/if}}
       </tr>
     </tbody>
     <thead>
@@ -70,22 +256,49 @@
     </thead>
     <tbody>
       <tr style="height:38px">
-        <td><img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/></td>
         <td>
-          <input style="width:40px" name="data.stats.xlr8.temp" type="number" data-dtype="Number" value="{{data.stats.xlr8.temp}}" onfocus="this.select()"/>
+          {{#if (cond "||"
+            (eq data.vehicle.components.body.stat.base 0)
+            (eq data.vehicle.components.chassis.stat.base 0)
+            (eq data.vehicle.components.chassis.integrity.base 0)
+          )}}
+            <img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/>
+          {{else}}
+            {{data.vehicle.stats.stopping.base}}
+          {{/if}}
+        </td>
+        <td>
+          <input style="width:40px" name="data.vehicle.stats.stopping.temp" type="number" data-dtype="Number" value="{{data.vehicle.stats.stopping.temp}}" onfocus="this.select()"/>
         </td>
       </tr>
     </tbody>
   </table>
+    
+  {{!-- Turning --}}
   <table style="width:100px">
     <thead>
       <tr>
-        <th colspan="2">{{localize "tsl.stats.xlr8"}}</th>
+        <th colspan="2">{{localize "tsl.stats.turning"}}</th>
       </tr>
     </thead>
     <tbody>
       <tr style="height:60px">
-        <td colspan="2"><img class="glow-red" height="48px" src="modules/tsl-module/img/transmission.svg"/></td>
+        {{#if (eq data.vehicle.components.body.stat.base 0)}}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/body.svg"/>
+          </td>
+        {{else if (cond "||" 
+                      (eq data.vehicle.components.suspension.stat.base 0)
+                      (eq data.vehicle.components.suspension.integrity.base 0))
+        }}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/suspension.svg"/>
+          </td>
+        {{else}}
+          <td colspan="2" style="font-size:2em">
+            {{data.vehicle.stats.turning.total}}
+          </td>
+        {{/if}}
       </tr>
     </tbody>
     <thead>
@@ -96,22 +309,42 @@
     </thead>
     <tbody>
       <tr style="height:38px">
-        <td><img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/></td>
         <td>
-          <input style="width:40px" name="data.stats.xlr8.temp" type="number" data-dtype="Number" value="{{data.stats.xlr8.temp}}" onfocus="this.select()"/>
+          {{#if (cond "||"
+            (eq data.vehicle.components.body.stat.base 0)
+            (eq data.vehicle.components.suspension.stat.base 0)
+            (eq data.vehicle.components.suspension.integrity.base 0)
+          )}}
+            <img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/>
+          {{else}}
+            {{data.vehicle.stats.turning.base}}
+          {{/if}}
+        </td>
+        <td>
+          <input style="width:40px" name="data.vehicle.stats.turning.temp" type="number" data-dtype="Number" value="{{data.vehicle.stats.turning.temp}}" onfocus="this.select()"/>
         </td>
       </tr>
     </tbody>
   </table>
+    
+  {{!-- Load --}}
   <table style="width:100px">
     <thead>
       <tr>
-        <th colspan="2">{{localize "tsl.stats.xlr8"}}</th>
+        <th colspan="2">{{localize "tsl.stats.load"}}</th>
       </tr>
     </thead>
     <tbody>
       <tr style="height:60px">
-        <td colspan="2"><img class="glow-red" height="48px" src="modules/tsl-module/img/chassis.svg"/></td>
+        {{#if (eq data.vehicle.components.body.stat.base 0)}}
+          <td colspan="2">
+            <img class="glow-red" height="48px" src="modules/tsl-module/img/body.svg"/>
+          </td>
+        {{else}}
+          <td colspan="2" style="font-size:2em">
+            {{data.vehicle.stats.load.total}}
+          </td>
+        {{/if}}
       </tr>
     </tbody>
     <thead>
@@ -122,37 +355,18 @@
     </thead>
     <tbody>
       <tr style="height:38px">
-        <td><img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/></td>
         <td>
-          <input style="width:40px" name="data.stats.xlr8.temp" type="number" data-dtype="Number" value="{{data.stats.xlr8.temp}}" onfocus="this.select()"/>
+          {{#if (eq data.vehicle.components.body.stat.base 0)}}
+            <img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/>
+          {{else}}
+            {{data.vehicle.stats.load.base}}
+          {{/if}}
+        </td>
+        <td>
+          <input style="width:40px" name="data.vehicle.stats.load.temp" type="number" data-dtype="Number" value="{{data.vehicle.stats.load.temp}}" onfocus="this.select()"/>
         </td>
       </tr>
     </tbody>
   </table>
-  <table style="width:100px">
-    <thead>
-      <tr>
-        <th colspan="2">{{localize "tsl.stats.xlr8"}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr style="height:60px">
-        <td colspan="2"><img class="glow-red" height="48px" src="modules/tsl-module/img/suspension.svg"/></td>
-      </tr>
-    </tbody>
-    <thead>
-      <tr>
-        <th>{{localize "tsl.summaryPage.base"}}</th>
-        <th>{{localize "tsl.summaryPage.temp"}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr style="height:38px">
-        <td><img class="glow-red" height="26px" src="modules/tsl-module/img/hazard.svg"/></td>
-        <td>
-          <input style="width:40px" name="data.stats.xlr8.temp" type="number" data-dtype="Number" value="{{data.stats.xlr8.temp}}" onfocus="this.select()"/>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    
 </div>

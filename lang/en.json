@@ -79,8 +79,8 @@
     { "topSpeed": "TOP SPEED"
     , "torque": "TORQUE"
     , "xlr8": "XLR8"
+    , "stopping": "STOPPING"
     , "turning": "TURNING"
-    , "brakes": "BRAKES"
     , "load": "LOAD"
     }
   
