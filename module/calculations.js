@@ -41,7 +41,7 @@ export async function calculateVehicleData(actor) {
   data.data.vehicle.hoursOfOperation = setVehicleHoursOfOperation(
     actor.data.data.vehicle, stats.load.total
   );
-  data.data.vehicle.fuelCapacity = setVehicleFuelCapacity(/* TODO */);
+  data.data.vehicle.fuelCapacity = setVehicleFuelCapacity(actor.data.data.vehicle);
 
   await actor.update(data);
 }
@@ -271,10 +271,18 @@ function setVehicleDerivedStats(components, stats, weight) {
   return newDerivedStats;
 }
 
-function setVehicleFuelCapacity() {
+function setVehicleFuelCapacity(vehicle) {
+  const baseCap =
+  { "steamhorse": 4
+  , "auto": 12
+  , "heavy": 200
+  };
+
+  let base = baseCap[vehicle.base.classification];
+  base *= vehicle.base.type === "aerial" ? 4 : 1;
   let newFuelCap =
-  { "value": 0
-  , "max": 0
+  { "value": vehicle.fuelCapacity.value || 0
+  , "max": base
   , "mods": 0
   };
   return newFuelCap;
@@ -318,7 +326,6 @@ function setVehicleHoursOfOperation(vehicle, load) {
   , "ldPen": ldPen
   , "temp": temp
   };
-  console.log(newHoursOfOperation);
   return newHoursOfOperation;
 }
 
