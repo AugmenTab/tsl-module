@@ -33,13 +33,15 @@ export async function calculateVehicleData(actor) {
     actor.data.data.vehicle, components.suspension, data.data.vehicle.base.size
   );
 
-  // let stats = data.data.vehicle.stats;
-  // data.data.vehicle.speed.max = stats.topSpeed.total;
-  // data.data.vehicle.rammingDamage = setVehicleRammingDamage(
-  //   actor.data.data.vehicle.rammingDamage.temp, stats, data.data.vehicle.base.size
-  // );
-  // data.data.vehicle.hoursofOperation = setVehicleHoursOfOperation(/* TODO */);
-  // data.data.vehicle.fuelCapacity = setVehicleFuelCapacity(/* TODO */);
+  let stats = data.data.vehicle.stats;
+  data.data.vehicle.speed.max = stats.topSpeed.total;
+  data.data.vehicle.rammingDamage = setVehicleRammingDamage(
+    actor.data.data.vehicle.rammingDamage.temp, stats, data.data.vehicle.base.size
+  );
+  data.data.vehicle.hoursOfOperation = setVehicleHoursOfOperation(
+    actor.data.data.vehicle, stats.load.total
+  );
+  data.data.vehicle.fuelCapacity = setVehicleFuelCapacity(/* TODO */);
 
   await actor.update(data);
 }
@@ -177,7 +179,7 @@ function setVehicleBase(vehicle) {
   let base =
     { "size": vehicle.base.size || "none"
     , "type": vehicle.base.type || "none"
-    , "class": vehicle.base.class || "none"
+    , "classification": vehicle.base.classification || "none"
     , "pilot": vehicle.base.pilot || ""
     };
   return base;
@@ -297,14 +299,26 @@ function setVehicleHitPoints(vehicle, hpTotal) {
   return newHitPoints;
 }
 
-function setVehicleHoursOfOperation() {
-  let newHoursOfOperation =
-  { "value": 0
-  , "max": 0
-  , "base": 0
-  , "ldPen": 0
-  , "temp": 0
+function setVehicleHoursOfOperation(vehicle, load) {
+  const baseHours =
+  { "steamhorse": 4
+  , "auto": 8
+  , "heavy": 24
   };
+
+  let type = vehicle.base.classification;
+  let temp = vehicle.hoursOfOperation.temp || 0;
+  let ldPen = Math.ceil(load / -100);
+  let total = baseHours[type] + ldPen + temp;
+
+  let newHoursOfOperation =
+  { "value": vehicle.hoursOfOperation.value
+  , "max": total > 0 ? total : 0
+  , "base": baseHours[type]
+  , "ldPen": ldPen
+  , "temp": temp
+  };
+  console.log(newHoursOfOperation);
   return newHoursOfOperation;
 }
 
