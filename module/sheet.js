@@ -35,6 +35,6 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   }
 }
 
-Hooks.on("updateActor", (actor) => {
-  calculateVehicleData(actor);
+Hooks.on("updateActor", async (actor) => {
+  await calculateVehicleData(actor);
 });

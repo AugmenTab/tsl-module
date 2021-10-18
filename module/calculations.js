@@ -11,7 +11,7 @@ const SIZE_MODIFIER =
 , "colossal": -8
 };
 
-export function calculateVehicleData(actor) {
+export async function calculateVehicleData(actor) {
   let data = duplicate(actor.data);
   data.data.vehicle.notes = setVehicleNotes(actor.data.data.vehicle);
   data.data.vehicle.base = setVehicleBase(actor.data.data.vehicle);
@@ -29,19 +29,19 @@ export function calculateVehicleData(actor) {
   data.data.vehicle.stats = setVehicleDerivedStats(
     components, actor.data.data.vehicle.stats, weight
   );
-
-  let stats = data.data.vehicle.stats;
   data.data.vehicle.ac = setVehicleArmorClass(
     actor.data.data.vehicle, components.suspension, data.data.vehicle.base.size
   );
-  data.data.vehicle.speed.max = stats.topSpeed.total;
-  data.data.vehicle.rammingDamage = setVehicleRammingDamage(
-    actor.data.data.vehicle.rammingDamage.temp, stats, data.data.vehicle.base.size
-  );
-  data.data.vehicle.hoursofOperation = setVehicleHoursOfOperation(/* TODO */);
-  data.data.vehicle.fuelCapacity = setVehicleFuelCapacity(/* TODO */);
 
-  actor.update(data);
+  // let stats = data.data.vehicle.stats;
+  // data.data.vehicle.speed.max = stats.topSpeed.total;
+  // data.data.vehicle.rammingDamage = setVehicleRammingDamage(
+  //   actor.data.data.vehicle.rammingDamage.temp, stats, data.data.vehicle.base.size
+  // );
+  // data.data.vehicle.hoursofOperation = setVehicleHoursOfOperation(/* TODO */);
+  // data.data.vehicle.fuelCapacity = setVehicleFuelCapacity(/* TODO */);
+
+  await actor.update(data);
 }
 
 function setCommonComponent(component) {
@@ -210,7 +210,7 @@ function setVehicleDerivedStats(components, stats, weight) {
   , "torque": stats.torque.temp || 0
   , "xlr8": stats.xlr8.temp || 0
   , "turning": stats.turning.temp || 0
-  , "brakes": stats.brakes.temp || 0
+  , "stopping": stats.stopping.temp || 0
   , "load": stats.load.temp || 0
   };
 
@@ -227,12 +227,12 @@ function setVehicleDerivedStats(components, stats, weight) {
   , "temp": temps.topSpeed
   , "total": topSpeedBase + temps.topSpeed
   };
-
+  
   let torqueBase = ho * torquePo * 10;
   let newTorque =
   { "base": torqueBase
   , "temp": temps.torque
-  , "total": torqueBase + temps.torqueBase
+  , "total": torqueBase + temps.torque
   };
   
   // TODO: Needs a new formula for calculating XLR8.
