@@ -245,7 +245,8 @@ function setVehicleDerivedStats(components, stats, weight) {
   , "total": xlr8Base + temps.xlr8
   };
   
-  let turningBase = Math.ceil((newTopSpeed.total + newLoad.total) / re);
+  let turningCalc = Math.ceil((newTopSpeed.total + newLoad.total) / re);
+  let turningBase = turningCalc === Infinity ? 0 : turningCalc;
   let newTurning =
   { "base": turningBase
   , "temp": temps.turning
