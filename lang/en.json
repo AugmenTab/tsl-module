@@ -64,6 +64,30 @@
     , "notesLabel": "COMPONENTS NOTES"
     , "notesPlaceholder": "Write notes about your components here."
     }
+  
+  , "modificationsPage":
+    { "engineIR": "Engine IR"
+    , "transmissionIR": "Transmission IR"
+    , "chassisIR": "Chassis IR"
+    , "suspensionIR": "Suspension IR"
+    , "ho": "Horsepower"
+    , "re": "Reactivity"
+    , "br": "Brakes"
+    , "topSpeed": "Top Speed"
+    , "torque": "Torque"
+    , "xlr8": "XLR8"
+    , "stopping": "Stopping"
+    , "turning": "Turning"
+    , "load": "Load"
+    , "hitPoints": "Hit Points"
+    , "ac": "Armor Class"
+    , "armor": "Armor"
+    , "rammingDamage": "Ramming Damage"
+    , "hoursOfOperation": "Hours of Operation"
+    , "fuelCapacity": "Fuel Capacity"
+    , "weight": "Weight"
+    , "header": "MODIFICATIONS LIST"
+    }
 
   , "cargoPage":
     { "crewWeight": "Crew Weight"
