@@ -15,7 +15,6 @@ export async function calculateVehicleData(actor) {
   let data = duplicate(actor.data);
   data.data.vehicle.notes = setVehicleNotes(actor.data.data.vehicle);
   data.data.vehicle.base = setVehicleBase(actor.data.data.vehicle);
-  data.data.vehicle.cargo = setVehicleCargo();
   data.data.vehicle.modifications = setVehicleMods(actor.data.data.vehicle);
   data.data.vehicle.components = setVehicleComponents(actor.data.data.vehicle);
   data.data.vehicle.weight = setVehicleWeight(
@@ -371,10 +370,6 @@ function setVehicleBase(vehicle) {
     , "pilot": vehicle.base.pilot || ""
     };
   return base;
-}
-
-function setVehicleCargo() {
-  return [];
 }
 
 function setVehicleComponents(vehicle) {

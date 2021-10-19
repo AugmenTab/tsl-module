@@ -121,49 +121,13 @@
           <input style="width:100px" name="data.vehicle.weight.crew" type="number" data-dtype="Number" value="{{data.vehicle.weight.crew}}"/>
           <h3>lbs</h3>
         </div>
-        <h3>
-          <b>{{localize "tsl.cargoPage.cargoWeight"}}:&nbsp;</b>
-          {{localnum data.vehicle.weight.cargo}}&nbsp;lbs
-        </h3>
+        <div class="crew-weight">
+          <h3><b>{{localize "tsl.cargoPage.cargoWeight"}}:</b></h3>
+          <input style="width:100px" name="data.vehicle.weight.cargo" type="number" data-dtype="Number" value="{{data.vehicle.weight.cargo}}"/>
+          <h3>lbs</h3>
+        </div>
       </div>
-      <table class="tsl-cargo-table">
-        <thead>
-          <tr>
-            <th>{{localize "tsl.cargoPage.cargoItem"}}</th>
-            <th style="width:70px">{{localize "tsl.cargoPage.carried"}}</th>
-            <th style="width:70px">{{localize "tsl.cargoPage.eachWeight"}}</th>
-            <th style="width:70px">{{localize "tsl.cargoPage.quantity"}}</th>
-            <th style="width:70px">{{localize "tsl.cargoPage.weight"}}</th>
-            <th style="width:25px"><i class="fas fa-trash"></i></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <div class="cargo-item">
-                <img alt="" src="icons/svg/item-bag.svg"/>
-                <span>Test Item Column</span>
-              </div>
-            </td>
-            <td>
-              <input type="checkbox"/>
-            </td>
-            <td>
-              <input style="width:50px" name="" type="number" data-dtype="Number" value=""/>
-            </td>
-            <td>
-              <input style="width:50px" name="" type="number" data-dtype="Number" value=""/>
-            </td>
-            <td>
-              <input style="width:50px" name="" type="number" data-dtype="Number" value=""/>
-            </td>
-            <td>
-              <a><i class="fas fa-trash"></i></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <textarea name="data.vehicle.notes.cargo" placeholder="{{localize "tsl.cargoPage.notes"}}">{{data.vehicle.notes.cargo}}</textarea>
+      <textarea style="height:575px" name="data.vehicle.notes.cargo" placeholder="{{localize "tsl.cargoPage.notes"}}">{{data.vehicle.notes.cargo}}</textarea>
     </div>
 
     {{!-- Notes --}}
