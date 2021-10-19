@@ -209,10 +209,6 @@
       }
     }
 
-    .tsl-final-row {
-
-    }
-
     .tsl-components-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -230,6 +226,20 @@
           place-items: center;
           column-gap: 6px;
         }
+      }
+    }
+
+    .tsl-mod-totals {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 8px;
+      place-items: center;
+
+      .mod-total {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        column-gap: 4px;
+        place-items: center;
       }
     }
 

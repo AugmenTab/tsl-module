@@ -4,6 +4,7 @@ Hooks.once("init", () => {
   const templates =
     [ "modules/tsl-module/templates/partials/tsl-components.hbs"
     , "modules/tsl-module/templates/partials/tsl-core-stats.hbs"
+    , "modules/tsl-module/templates/partials/tsl-modifications.hbs"
     , "modules/tsl-module/templates/partials/tsl-summary-leftpane.hbs"
     , "modules/tsl-module/templates/partials/tsl-summary-rightpane.hbs"
     ];

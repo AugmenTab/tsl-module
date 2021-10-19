@@ -8,7 +8,7 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["tsl-vehicle"],
-      height: 800,
+      height: 805,
       width: 700,
       tabs: [
         {
@@ -32,6 +32,12 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
 
   activateListeners(html) {
     super.activateListeners(html);
+
+    html.find(".mod-create").click(this._onModCreate.bind(this));
+  }
+
+  async _onModCreate(event) {
+    event.preventDefault();
   }
 }
 
