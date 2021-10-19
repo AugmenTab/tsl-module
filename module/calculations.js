@@ -15,6 +15,7 @@ export async function calculateVehicleData(actor) {
   let data = duplicate(actor.data);
   data.data.vehicle.notes = setVehicleNotes(actor.data.data.vehicle);
   data.data.vehicle.base = setVehicleBase(actor.data.data.vehicle);
+  data.data.vehicle.cargo = setVehicleCargo();
   data.data.vehicle.modifications = setVehicleMods(actor.data.data.vehicle);
   data.data.vehicle.components = setVehicleComponents(actor.data.data.vehicle);
   data.data.vehicle.weight = setVehicleWeight(
@@ -43,6 +44,193 @@ export async function calculateVehicleData(actor) {
   );
   data.data.vehicle.fuelCapacity = setVehicleFuelCapacity(actor.data.data.vehicle);
 
+  await actor.update(data);
+}
+
+export async function seedVehicleData(actor) {
+  let data = duplicate(actor.data);
+  data.data.vehicle =
+  { "ac":
+    { "base": 0
+    , "mods": 0
+    , "temp": 0
+    , "total": 0
+    }
+
+  , "base":
+    { "size": "none"
+    , "type": "none"
+    , "classification": "none"
+    , "pilot": ""
+    }
+
+  , "components":
+    { "engine":
+      { "stat":
+        { "base": 0
+        , "mods": 0
+        , "total": 0
+        }
+      , "integrity":
+        { "base": 0
+        , "total": 0
+        , "resist": 0
+        }
+      , "primary": ""
+      , "secondary": ""
+      }
+
+    , "transmission":
+      { "stat":
+        { "base": 0
+        , "fluid": 0
+        , "display": "0"
+        }
+      , "integrity":
+        { "base": 0
+        , "total": 0
+        , "resist": 0
+        }
+      , "primary": ""
+      , "secondary": ""
+      }
+
+    , "chassis":
+      { "stat":
+        { "base": 0
+        , "mods": 0
+        , "total": 0
+        }
+      , "integrity":
+        { "base": 0
+        , "total": 0
+        , "resist": 0
+        }
+      , "primary": ""
+      , "secondary": ""
+      }
+
+    , "suspension":
+      { "stat":
+        { "base": 0
+        , "mods": 0
+        , "total": 0
+        }
+      , "integrity":
+        { "base": 0
+        , "total": 0
+        , "resist": 0
+        }
+      , "primary": ""
+      , "secondary": ""
+      }
+
+    , "body":
+      { "weight":
+        { "base": 0
+        , "mods": 0
+        , "total": 0
+        }
+      , "armor":
+        { "base": 0
+        , "mods": 0
+        , "total": 0
+        }
+      , "hp":
+        { "base": 0
+        , "mods": 0
+        , "total": 0
+        }
+      , "primary": ""
+      , "secondary": ""
+      }
+    }
+
+  , "fuelCapacity":
+    { "value": 0
+    , "max": 0
+    , "mods": 0
+    }
+
+  , "hoursOfOperation":
+    { "value": 0
+    , "max": 0
+    , "base": 0
+    , "ldPen": 0
+    , "temp": 0
+    }
+
+  , "hp":
+    { "value": 0
+    , "max": 0
+    , "base": 0
+    , "mods": 0
+    }
+
+  , "modifications": []
+
+  , "notes":
+    { "cargo": ""
+    , "character": ""
+    , "components": ""
+    , "modifications": ""
+    }
+
+  , "rammingDamage":
+    { "base": 0
+    , "temp": 0
+    , "total": 0
+    }
+
+  , "speed":
+    { "value": 0
+    , "max": 0
+    }
+
+  , "stats":
+    { "topSpeed":
+      { "base": 0
+      , "temp": 0
+      , "total": 0
+      }
+      
+    , "torque":
+      { "base": 0
+      , "temp": 0
+      , "total": 0
+      }
+      
+    , "xlr8":
+      { "base": 0
+      , "temp": 0
+      , "total": 0
+      }
+      
+    , "turning":
+      { "base": 0
+      , "temp": 0
+      , "total": 0
+      }
+      
+    , "brakes":
+      { "base": 0
+      , "temp": 0
+      , "total": 0
+      }
+      
+    , "load":
+      { "base": 0
+      , "temp": 0
+      , "total": 0
+      }
+    }
+
+  , "weight":
+    { "cargo": 0.0
+    , "crew": 0.0
+    , "curb": 0.0
+    }
+  }
   await actor.update(data);
 }
 
@@ -185,6 +373,10 @@ function setVehicleBase(vehicle) {
   return base;
 }
 
+function setVehicleCargo() {
+  return [];
+}
+
 function setVehicleComponents(vehicle) {
   let components =
   { "engine": setCommonComponent(vehicle.components.engine)
@@ -245,8 +437,10 @@ function setVehicleDerivedStats(components, stats, weight) {
   , "total": xlr8Base + temps.xlr8
   };
   
-  let turningCalc = Math.ceil((newTopSpeed.total + newLoad.total) / re);
-  let turningBase = turningCalc === Infinity ? 0 : turningCalc;
+  let turningBase = Math.ceil((newTopSpeed.total + newLoad.total) / re);
+  if (turningBase === Infinity || isNaN(turningBase)) {
+    turningBase = 0;
+  }
   let newTurning =
   { "base": turningBase
   , "temp": temps.turning
@@ -274,7 +468,8 @@ function setVehicleDerivedStats(components, stats, weight) {
 
 function setVehicleFuelCapacity(vehicle) {
   const baseCap =
-  { "steamhorse": 4
+  { "none": 0
+  , "steamhorse": 4
   , "auto": 12
   , "heavy": 200
   };
@@ -310,7 +505,8 @@ function setVehicleHitPoints(vehicle, hpTotal) {
 
 function setVehicleHoursOfOperation(vehicle, load) {
   const baseHours =
-  { "steamhorse": 4
+  { "none": 0
+  , "steamhorse": 4
   , "auto": 8
   , "heavy": 24
   };

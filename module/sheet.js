@@ -1,4 +1,4 @@
-import { calculateVehicleData } from "./calculations.js";
+import { calculateVehicleData, seedVehicleData } from "./calculations.js";
 
 export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   get template() {
@@ -34,6 +34,10 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     super.activateListeners(html);
   }
 }
+
+Hooks.on("createActor", async (actor) => {
+  await seedVehicleData(actor);
+});
 
 Hooks.on("updateActor", async (actor) => {
   await calculateVehicleData(actor);
