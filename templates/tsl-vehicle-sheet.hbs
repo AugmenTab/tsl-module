@@ -69,19 +69,13 @@
             <tr>
               <th>{{localize "tsl.summaryPage.onboardWeapons"}}</th>
             </tr>
-            <tr>
-              <th>Stat Cell Headers Go Here</th>
-            </tr>
           </thead>
           <tbody>
-            {{!-- #IF engine is gasoline or diesel, add attacks here. /IF --}}
-            {{!-- #EACH item of type weapon attached to vehicle. --}}
             <tr>
               <td>
-                <input type="text"/>
+                <textarea name="data.vehicle.notes.weapons" placeholder="{{localize "tsl.summaryPage.notes"}}">{{data.vehicle.notes.weapons}}</textarea>
               </td>
             </tr>
-            {{!-- /EACH --}}
           </tbody>
         </table>
       </div>

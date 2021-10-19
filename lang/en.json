@@ -51,6 +51,7 @@
     , "fuelCap": "Fuel Capacity"
     , "rammingDamage": "RAMMING DAMAGE"
     , "onboardWeapons": "ONBOARD WEAPONS"
+    , "notes": "Write notes about your onboard weapons here."
     }
   
   , "componentsPage":

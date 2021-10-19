@@ -173,6 +173,7 @@ export async function seedVehicleData(actor) {
     , "character": ""
     , "components": ""
     , "modifications": ""
+    , "weapons": ""
     }
 
   , "rammingDamage":
@@ -531,6 +532,7 @@ function setVehicleNotes(vehicle) {
   , "character": vehicle.notes.character || ""
   , "components": vehicle.notes.components || ""
   , "modifications": vehicle.notes.modifications || ""
+  , "weapons": vehicle.notes.weapons || ""
   };
   return notes;
 }
