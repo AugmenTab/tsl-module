@@ -1,83 +1,83 @@
 <div class="tsl-mod-totals">
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.engineIR"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.engineIR}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.transmissionIR"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.transmissionIR}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.chassisIR"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.chassisIR}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.suspensionIR"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.suspensionIR}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.ho"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.ho}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.re"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.re}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.br"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.br}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.topSpeed"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.topSpeed}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.torque"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.torque}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.xlr8"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.xlr8}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.stopping"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.stopping}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.turning"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.turning}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.load"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.load}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.hitPoints"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.hitPoints}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.ac"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.ac}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.armor"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.armor}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.rammingDamage"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.rammingDamage}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.hoursOfOperation"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.hoursOfOperation}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.fuelCapacity"}}:</h3>
-    <h3>0</h3>
+    <h3>{{data.vehicle.modifications.values.fuelCapacity}}</h3>
   </div>
   <div class="mod-total">
     <h3>{{localize "tsl.modificationsPage.weight"}}:</h3>
-    <h3>0&nbsp;lbs</h3>
+    <h3>{{data.vehicle.modifications.values.weight}}&nbsp;lbs</h3>
   </div>
 </div>
 <table>
@@ -93,9 +93,9 @@
 <div class="tsl-mod-list">
   {{#each data.vehicle.modifications.list as |mod|}}
     <div class="tsl-mod">
-      <input style="width:370px" data-field="name" data-index={{mod.index}} type="text" value="{{mod.name}}" onfocus="this.select()"/>
-      {{#select mod.mods}}
-        <select data-field="mods" data-index={{mod.index}}>
+      <input class="mod-update" style="width:370px" data-field="name" data-index={{mod.index}} type="text" value="{{mod.name}}" onfocus="this.select()"/>
+      <select class="mod-update" data-field="mods" data-index={{mod.index}}>
+        {{#select mod.mods}}
           <option value="none">
             {{localize "tsl.modificationsPage.none"}}
           </option>
@@ -159,10 +159,10 @@
           <option value="weight">
             {{localize "tsl.modificationsPage.weight"}}
           </option>
-        </select>
-      {{/select}}
-      <input style="width:50px" data-field="val" data-index={{mod.index}} type="number" data-dtype="Number" placeholder="VAL" value="{{mod.val}}"/>
-      <input style="width:50px" data-field="weight" data-index={{mod.index}} type="number" data-dtype="Number" placeholder="WT" value="{{mod.weight}}"/>
+        {{/select}}
+      </select>
+      <input class="mod-update" style="width:50px" data-field="val" data-index={{mod.index}} type="number" data-dtype="Number" placeholder="VAL" value="{{mod.val}}" onfocus="this.select()"/>
+      <input class="mod-update" style="width:50px" data-field="weight" data-index={{mod.index}} type="number" data-dtype="Number" placeholder="WT" value="{{mod.weight}}" onfocus="this.select()"/>
       <a><i class="fas fa-trash mod-delete" data-index="{{mod.index}}"></i></a>
     </div>
   {{else}}
