@@ -1,4 +1,4 @@
-import { calculateVehicleData, seedVehicleData } from "./calculations.js";
+import { calculateVehicleData, reIndexMods, seedVehicleData } from "./calculations.js";
 
 export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   get template() {
@@ -34,18 +34,15 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     super.activateListeners(html);
 
     html.find(".mod-create").click(this._onModCreate.bind(this));
+    html.find(".mod-delete").click(this._onModDelete.bind(this));
   }
 
   async _onModCreate(event) {
     event.preventDefault();
     let data = duplicate(this.actor.data);
-    let modsList = data.data.vehicle.modifications.list;
-
-    for (let i = 0; i < modsList.length; i++) {
-      modsList[i].index = i;
-    }
-
+    let modsList = reIndexMods(data.data.vehicle.modifications.list);
     data.data.vehicle.modifications.list = modsList;
+
     const mod =
       { "name": ""
       , "mods": "none"
@@ -53,8 +50,17 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
       , "weight": 0
       , "index": modsList.length
       };
-    console.log(data.data.vehicle.modifications);
     data.data.vehicle.modifications.list.push(mod);
+    await this.actor.update(data);
+  }
+
+  async _onModDelete(event) {
+    event.preventDefault;
+    const element = event.currentTarget;
+    let data = duplicate(this.actor.data);
+    const list = data.data.vehicle.modifications.list;
+    const mods = list.filter(x => x.index !== parseInt(element.dataset.index));
+    data.data.vehicle.modifications.list = reIndexMods(mods);
     await this.actor.update(data);
   }
 }

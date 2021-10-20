@@ -68,6 +68,7 @@
   , "modificationsPage":
     { "header": "MODIFICATIONS LIST"
     , "empty": "This vehicle has no installed modifications."
+    , "none": "-- Select Mod --"
     , "engineIR": "Engine IR"
     , "transmissionIR": "Transmission IR"
     , "chassisIR": "Chassis IR"

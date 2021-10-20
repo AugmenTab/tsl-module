@@ -96,6 +96,9 @@
       <input style="width:370px" data-field="name" data-index={{mod.index}} type="text" value="{{mod.name}}" onfocus="this.select()"/>
       {{#select mod.mods}}
         <select data-field="mods" data-index={{mod.index}}>
+          <option value="none">
+            {{localize "tsl.modificationsPage.none"}}
+          </option>
           <option value="engineIR">
             {{localize "tsl.modificationsPage.engineIR"}}
           </option>
@@ -160,7 +163,7 @@
       {{/select}}
       <input style="width:50px" data-field="val" data-index={{mod.index}} type="number" data-dtype="Number" placeholder="VAL" value="{{mod.val}}"/>
       <input style="width:50px" data-field="weight" data-index={{mod.index}} type="number" data-dtype="Number" placeholder="WT" value="{{mod.weight}}"/>
-      <a><i class="fas fa-trash"></i></a>
+      <a><i class="fas fa-trash mod-delete" data-index="{{mod.index}}"></i></a>
     </div>
   {{else}}
     <span>{{localize "tsl.modificationsPage.empty"}}</span>

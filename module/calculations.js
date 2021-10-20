@@ -48,6 +48,13 @@ export async function calculateVehicleData(actor) {
   await actor.update(data);
 }
 
+export function reIndexMods(modsList) {
+  for (let i = 0; i < modsList.length; i++) {
+    modsList[i].index = i;
+  };
+  return modsList;
+}
+
 export async function seedVehicleData(actor) {
   let data = duplicate(actor.data);
   data.data.vehicle =
