@@ -15,7 +15,9 @@ export async function calculateVehicleData(actor) {
   let data = duplicate(actor.data);
   data.data.vehicle.notes = setVehicleNotes(actor.data.data.vehicle);
   data.data.vehicle.base = setVehicleBase(actor.data.data.vehicle);
-  data.data.vehicle.modifications = setVehicleMods(actor.data.data.vehicle);
+  
+  let mods = setVehicleMods(actor.data.data.vehicle);
+  data.data.vehicle.modifications = mods;
   data.data.vehicle.components = setVehicleComponents(actor.data.data.vehicle);
   data.data.vehicle.weight = setVehicleWeight(
     actor.data.data.vehicle, data.data.vehicle.components.body.stat.total
@@ -166,7 +168,31 @@ export async function seedVehicleData(actor) {
     , "mods": 0
     }
 
-  , "modifications": []
+  , "modifications":
+    { "list": []
+    , "values":
+      { "engineIR": 0
+      , "transmissionIR": 0
+      , "chassisIR": 0
+      , "suspensionIR": 0
+      , "ho": 0
+      , "re": 0
+      , "br": 0
+      , "topSpeed": 0
+      , "torque": 0
+      , "xlr8": 0
+      , "stopping": 0
+      , "turning": 0
+      , "load": 0
+      , "hitPoints": 0
+      , "ac": 0
+      , "armor": 0
+      , "rammingDamage": 0
+      , "hoursOfOperation": 0
+      , "fuelCapacity": 0
+      , "weight": 0
+      }
+    }
 
   , "notes":
     { "cargo": ""
@@ -523,7 +549,40 @@ function setVehicleHoursOfOperation(vehicle, load) {
 }
 
 function setVehicleMods(vehicle) {
-  return vehicle.modifications || [];
+  let list = vehicle.modifications.list || [];
+  let values =
+  { "engineIR": 0
+  , "transmissionIR": 0
+  , "chassisIR": 0
+  , "suspensionIR": 0
+  , "ho": 0
+  , "re": 0
+  , "br": 0
+  , "topSpeed": 0
+  , "torque": 0
+  , "xlr8": 0
+  , "stopping": 0
+  , "turning": 0
+  , "load": 0
+  , "hitPoints": 0
+  , "ac": 0
+  , "armor": 0
+  , "rammingDamage": 0
+  , "hoursOfOperation": 0
+  , "fuelCapacity": 0
+  , "weight": 0
+  };
+
+  for (item of list) {
+    values[item.mods] += item.val ? item.val : 0;
+    values.weight += item.weight ? item.weight : 0;
+  }
+
+  let newMods =
+  { "list": list
+  , "values": values
+  }
+  return newMods;
 }
 
 function setVehicleNotes(vehicle) {

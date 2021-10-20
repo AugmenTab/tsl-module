@@ -56,7 +56,7 @@
     <h3>0</h3>
   </div>
   <div class="mod-total">
-    <h3>Armor {{localize "tsl.modificationsPage.ac"}}:</h3>
+    <h3>{{localize "tsl.modificationsPage.ac"}}:</h3>
     <h3>0</h3>
   </div>
   <div class="mod-total">
@@ -83,10 +83,84 @@
 <table>
   <thead>
     <tr>
-      <th>MODIFICATIONS LIST</th>
+      <th>{{localize "tsl.modificationsPage.header"}}</th>
+      <th style="width:30px">
+        <a><i class="fas fa-plus"></i></a>
+      </th>
     </tr>
   </thead>
 </table>
 <div class="tsl-mod-list">
-  stuff
+  {{#each data.vehicle.modification.list}}
+    <div class="tsl-mod">
+      <input style="width:370px" type="text" onfocus="this.select()"/>
+      <select>
+        <option value="engineIR">
+          {{localize "tsl.modificationsPage.engineIR"}}
+        </option>
+        <option value="transmissionIR">
+          {{localize "tsl.modificationsPage.transmissionIR"}}
+        </option>
+        <option value="chassisIR">
+          {{localize "tsl.modificationsPage.chassisIR"}}
+        </option>
+        <option value="suspensionIR">
+          {{localize "tsl.modificationsPage.suspensionIR"}}
+        </option>
+        <option value="ho">
+          {{localize "tsl.modificationsPage.ho"}}
+        </option>
+        <option value="re">
+          {{localize "tsl.modificationsPage.re"}}
+        </option>
+        <option value="br">
+          {{localize "tsl.modificationsPage.br"}}
+        </option>
+        <option value="topSpeed">
+          {{localize "tsl.modificationsPage.topSpeed"}}
+        </option>
+        <option value="torque">
+          {{localize "tsl.modificationsPage.torque"}}
+        </option>
+        <option value="xlr8">
+          {{localize "tsl.modificationsPage.xlr8"}}
+        </option>
+        <option value="stopping">
+          {{localize "tsl.modificationsPage.stopping"}}
+        </option>
+        <option value="turning">
+          {{localize "tsl.modificationsPage.turning"}}
+        </option>
+        <option value="load">
+          {{localize "tsl.modificationsPage.load"}}
+        </option>
+        <option value="hitPoints">
+          {{localize "tsl.modificationsPage.hitPoints"}}
+        </option>
+        <option value="ac">
+          {{localize "tsl.modificationsPage.ac"}}
+        </option>
+        <option value="armor">
+          {{localize "tsl.modificationsPage.armor"}}
+        </option>
+        <option value="rammingDamage">
+          {{localize "tsl.modificationsPage.rammingDamage"}}
+        </option>
+        <option value="hoursOfOperation">
+          {{localize "tsl.modificationsPage.hoursOfOperation"}}
+        </option>
+        <option value="fuelCapacity">
+          {{localize "tsl.modificationsPage.fuelCapacity"}}
+        </option>
+        <option value="weight">
+          {{localize "tsl.modificationsPage.weight"}}
+        </option>
+      </select>
+      <input style="width:50px" type="number" data-dtype="Number" placeholder="VAL"/>
+      <input style="width:50px" type="number" data-dtype="Number" placeholder="WT"/>
+      <a><i class="fas fa-trash"></i></a>
+    </div>
+  {{else}}
+    <span>{{localize "tsl.modificationsPage.empty"}}</span>
+  {{/each}}
 </div>
