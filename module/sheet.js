@@ -36,10 +36,11 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     html.find(".mod-create").click(this._onModCreate.bind(this));
     html.find(".mod-delete").click(this._onModDelete.bind(this));
     html.find(".mod-update").click(this._onModUpdate.bind(this));
+    html.find(".speed-change").click(this._onSpeedChange.bind(this));
   }
 
   async _onModCreate(event) {
-    event.preventDefault();
+    event.preventDefault()();
     let data = duplicate(this.actor.data);
     let modsList = reIndexMods(data.data.vehicle.modifications.list);
     data.data.vehicle.modifications.list = modsList;
@@ -56,7 +57,7 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   }
 
   async _onModDelete(event) {
-    event.preventDefault;
+    event.preventDefault();
     const element = event.currentTarget;
     let data = duplicate(this.actor.data);
     const list = data.data.vehicle.modifications.list;
@@ -66,7 +67,7 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   }
 
   async _onModUpdate(event) {
-    event.preventDefault;
+    event.preventDefault();
     const element = event.currentTarget;
     let data = duplicate(this.actor.data);
     let val = ["val", "weight"].includes(element.dataset.field) 
@@ -76,6 +77,23 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     }
     data.data.vehicle.modifications.list[element.dataset.index][element.dataset.field] = val;
     await this.actor.update(data);
+  }
+
+  async _onSpeedChange(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const operation = element.getAttribute("data-operation");
+    let data = this.actor.data;
+    let speed = data.data.vehicle.speed.value || 0;
+    if (operation === "inc") {
+      let max = data.data.vehicle.speed.max
+      let calc = speed + data.data.vehicle.stats.xlr8.total;
+      speed = calc > max ? max : calc;
+    } else if (operation === "dec") {
+      let calc = speed - data.data.vehicle.stats.stopping.total;
+      speed = calc > 0 ? calc : 0;
+    }
+    await this.actor.update({ "data.vehicle.speed.value": speed });
   }
 }
 
