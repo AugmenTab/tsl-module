@@ -83,10 +83,17 @@
 <table>
   <thead>
     <tr>
-      <th>{{localize "tsl.modificationsPage.header"}}</th>
+      <th colspan="4">{{localize "tsl.modificationsPage.header"}}</th>
       <th style="width:30px">
         <a><i class="fas fa-plus mod-create"></i></a>
       </th>
+    </tr>
+    <tr>
+      <th style="width:375px">{{localize "tsl.modificationsPage.name"}}</th>
+      <th>{{localize "tsl.modificationsPage.modifies"}}</th>
+      <th>{{localize "tsl.modificationsPage.val"}}</th>
+      <th>{{localize "tsl.modificationsPage.lbs"}}</th>
+      <th><i class="fas fa-trash"></i></th>
     </tr>
   </thead>
 </table>
@@ -161,8 +168,8 @@
           </option>
         {{/select}}
       </select>
-      <input class="mod-update" style="width:50px" data-field="val" data-index={{mod.index}} type="number" data-dtype="Number" placeholder="VAL" value="{{mod.val}}" onfocus="this.select()"/>
-      <input class="mod-update" style="width:50px" data-field="weight" data-index={{mod.index}} type="number" data-dtype="Number" placeholder="WT" value="{{mod.weight}}" onfocus="this.select()"/>
+      <input class="mod-update" style="width:50px" data-field="val" data-index={{mod.index}} type="number" data-dtype="Number" placeholder="{{localize "tsl.modificationsPage.val"}}" value="{{mod.val}}" onfocus="this.select()"/>
+      <input class="mod-update" style="width:50px" data-field="weight" data-index={{mod.index}} type="number" data-dtype="Number" placeholder="{{localize "tsl.modificationsPage.lbs"}}" value="{{mod.weight}}" onfocus="this.select()"/>
       <a><i class="fas fa-trash mod-delete" data-index="{{mod.index}}"></i></a>
     </div>
   {{else}}

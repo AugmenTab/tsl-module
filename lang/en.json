@@ -67,6 +67,10 @@
   
   , "modificationsPage":
     { "header": "MODIFICATIONS LIST"
+    , "name": "NAME"
+    , "modifies": "MODIFIES"
+    , "val": "VAL"
+    , "lbs": "LBS"
     , "empty": "This vehicle has no installed modifications."
     , "none": "-- Select Mod --"
     , "engineIR": "Engine IR"
