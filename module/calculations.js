@@ -573,8 +573,10 @@ function setVehicleMods(vehicle) {
   , "weight": 0
   };
 
-  for (item of list) {
-    values[item.mods] += item.val ? item.val : 0;
+  for (let item of list) {
+    if (item.mods !== "none") {
+      values[item.mods] += item.val ? item.val : 0;
+    }
     values.weight += item.weight ? item.weight : 0;
   }
 
