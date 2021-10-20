@@ -35,6 +35,7 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
 
     html.find(".mod-create").click(this._onModCreate.bind(this));
     html.find(".mod-delete").click(this._onModDelete.bind(this));
+    html.find(".mod-update").click(this._onModUpdate.bind(this));
   }
 
   async _onModCreate(event) {
@@ -61,6 +62,19 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     const list = data.data.vehicle.modifications.list;
     const mods = list.filter(x => x.index !== parseInt(element.dataset.index));
     data.data.vehicle.modifications.list = reIndexMods(mods);
+    await this.actor.update(data);
+  }
+
+  async _onModUpdate(event) {
+    event.preventDefault;
+    const element = event.currentTarget;
+    let data = duplicate(this.actor.data);
+    let val = ["val", "weight"].includes(element.dataset.field) 
+      ? parseFloat(element.value) : element.value;
+    if (["val", "weight"].includes(element.dataset.field) && isNaN(val)) {
+      val = 0;
+    }
+    data.data.vehicle.modifications.list[element.dataset.index][element.dataset.field] = val;
     await this.actor.update(data);
   }
 }
