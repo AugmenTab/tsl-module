@@ -36,18 +36,22 @@ export async function calculateVehicleData(actor) {
     components, actor.data.data.vehicle.stats, weight
   );
   data.data.vehicle.ac = setVehicleArmorClass(
-    actor.data.data.vehicle, components.suspension, data.data.vehicle.base.size
+    actor.data.data.vehicle, components.suspension,
+    data.data.vehicle.base.size, mods.values.ac
   );
 
   let stats = data.data.vehicle.stats;
   data.data.vehicle.speed.max = stats.topSpeed.total;
   data.data.vehicle.rammingDamage = setVehicleRammingDamage(
-    actor.data.data.vehicle.rammingDamage.temp, stats, data.data.vehicle.base.size
+    actor.data.data.vehicle.rammingDamage.temp, stats, 
+    data.data.vehicle.base.size, mods.values.rammingDamage
   );
   data.data.vehicle.hoursOfOperation = setVehicleHoursOfOperation(
-    actor.data.data.vehicle, stats.load.total
+    actor.data.data.vehicle, stats.load.total, mods.values.hoursOfOperation
   );
-  data.data.vehicle.fuelCapacity = setVehicleFuelCapacity(actor.data.data.vehicle);
+  data.data.vehicle.fuelCapacity = setVehicleFuelCapacity(
+    actor.data.data.vehicle, mods.values.fuelCapacity
+  );
 
   await actor.update(data);
 }
@@ -388,16 +392,15 @@ function setComponentValueStat(stat, totalIntegrity) {
   return newStat;
 }
 
-function setVehicleArmorClass(vehicle, suspension, size) {
+function setVehicleArmorClass(vehicle, suspension, size, mod) {
   let acBase = 10 + SIZE_MODIFIER[size] + suspension.stat.total;
-  let acMods = 0; // TODO: Figure out how to modify AC with this.
   let acTemp = 0; // TODO: Figure out how to modify AC with this.
 
   let newArmorClass =
   { "base": acBase
-  , "mods": acMods
+  , "mods": mod
   , "temp": acTemp
-  , "total": acBase + acMods + acTemp
+  , "total": acBase + mod + acTemp
   }
   return newArmorClass;
 }
@@ -513,7 +516,7 @@ function setVehicleDerivedStats(components, stats, weight) {
   return newDerivedStats;
 }
 
-function setVehicleFuelCapacity(vehicle) {
+function setVehicleFuelCapacity(vehicle, mod) {
   const baseCap =
   { "none": 0
   , "steamhorse": 4
@@ -525,8 +528,8 @@ function setVehicleFuelCapacity(vehicle) {
   base *= vehicle.base.type === "aerial" ? 4 : 1;
   let newFuelCap =
   { "value": vehicle.fuelCapacity.value || 0
-  , "max": base
-  , "mods": 0
+  , "max": base + mod
+  , "mods": mod
   };
   return newFuelCap;
 }
@@ -550,7 +553,7 @@ function setVehicleHitPoints(vehicle, hpTotal) {
   return newHitPoints;
 }
 
-function setVehicleHoursOfOperation(vehicle, load) {
+function setVehicleHoursOfOperation(vehicle, load, mod) {
   const baseHours =
   { "none": 0
   , "steamhorse": 4
@@ -561,7 +564,7 @@ function setVehicleHoursOfOperation(vehicle, load) {
   let type = vehicle.base.classification;
   let temp = vehicle.hoursOfOperation.temp || 0;
   let ldPen = Math.ceil(load / -100);
-  let total = baseHours[type] + ldPen + temp;
+  let total = baseHours[type] + ldPen + temp + mod;
 
   let newHoursOfOperation =
   { "value": vehicle.hoursOfOperation.value
@@ -624,9 +627,9 @@ function setVehicleNotes(vehicle) {
 }
 
 // TODO
-function setVehicleRammingDamage(temp, stats, size) {
+function setVehicleRammingDamage(temp, stats, size, mods) {
   let rammingBase = (
-    stats.topSpeed.total + Math.floor(stats.load.total / 10) /* + SIZE */
+    stats.topSpeed.total + Math.floor(stats.load.total / 10) + mods /* + SIZE */
   );
 
   if (rammingBase < 0) rammingBase = 1;
