@@ -75,6 +75,12 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
 
   async _onCargoDelete(event) {
     event.preventDefault();
+    const element = event.currentTarget;
+    let data = duplicate(this.actor.data);
+    const cargo = data.data.vehicle.cargo;
+    const newCargo = cargo.filter(x => x.index !== parseInt(element.dataset.index));
+    data.data.vehicle.cargo = reIndexItems(newCargo);
+    await this.actor.update(data);
   }
 
   async _onCargoUpdate(event) {
