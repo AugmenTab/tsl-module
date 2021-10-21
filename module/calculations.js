@@ -16,7 +16,8 @@ export async function calculateVehicleData(actor) {
   data.data.vehicle.notes = setVehicleNotes(actor.data.data.vehicle);
   data.data.vehicle.base = setVehicleBase(actor.data.data.vehicle);
 
-  let cargo = setVehicleCargo(actor.data.data.vehicle.cargo);
+  let cargoManifestAndWeight = setVehicleCargo(actor.data.data.vehicle.cargo);
+  data.data.vehicle.cargo = cargoManifestAndWeight.manifest;
   
   let mods = setVehicleMods(actor.data.data.vehicle);
   data.data.vehicle.modifications = mods;
@@ -50,11 +51,11 @@ export async function calculateVehicleData(actor) {
   await actor.update(data);
 }
 
-export function reIndexMods(modsList) {
-  for (let i = 0; i < modsList.length; i++) {
-    modsList[i].index = i;
+export function reIndexItems(itemList) {
+  for (let i = 0; i < itemList.length; i++) {
+    itemList[i].index = i;
   };
-  return modsList;
+  return itemList;
 }
 
 export async function seedVehicleData(actor) {
@@ -408,6 +409,18 @@ function setVehicleBase(vehicle) {
     , "pilot": vehicle.base.pilot || ""
     };
   return base;
+}
+
+function setVehicleCargo(cargo) {
+  let newCargo =
+    { "manifest": cargo || []
+    , "weight": 0
+    };
+  for (let item of newCargo.manifest) {
+    newCargo.weight += item.weight ? item.weight : 0;
+  }
+
+  return newCargo;
 }
 
 function setVehicleComponents(vehicle) {

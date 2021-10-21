@@ -1,4 +1,4 @@
-import { calculateVehicleData, reIndexMods, seedVehicleData } from "./calculations.js";
+import { calculateVehicleData, reIndexItems, seedVehicleData } from "./calculations.js";
 
 export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   get template() {
@@ -33,6 +33,9 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   activateListeners(html) {
     super.activateListeners(html);
 
+    html.find(".cargo-create").click(this._onCargoCreate.bind(this));
+    html.find(".cargo-delete").click(this._onCargoDelete.bind(this));
+    html.find(".cargo-update").click(this._onCargoUpdate.bind(this));
     html.find(".hours-change").click(this._onHoursOfOperationChange.bind(this));
     html.find(".mod-create").click(this._onModCreate.bind(this));
     html.find(".mod-delete").click(this._onModDelete.bind(this));
@@ -55,10 +58,34 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     await this.actor.update({ "data.vehicle.hoursOfOperation.value": hours });
   }
 
-  async _onModCreate(event) {
-    event.preventDefault()();
+  async _onCargoCreate(event) {
+    event.preventDefault();
     let data = duplicate(this.actor.data);
-    let modsList = reIndexMods(data.data.vehicle.modifications.list);
+    let manifest = reIndexItems(data.data.vehicle.cargo);
+    data.data.vehicle.cargo = manifest;
+
+    const item =
+      { "desc": ""
+      , "weight": 0
+      , "index": manifest.length
+      };
+    data.data.vehicle.cargo.push(item);
+    await this.actor.update(data);
+  }
+
+  async _onCargoDelete(event) {
+    event.preventDefault();
+  }
+
+  async _onCargoUpdate(event) {
+    event.preventDefault();
+  }
+
+
+  async _onModCreate(event) {
+    event.preventDefault();
+    let data = duplicate(this.actor.data);
+    let modsList = reIndexItems(data.data.vehicle.modifications.list);
     data.data.vehicle.modifications.list = modsList;
 
     const mod =
@@ -78,7 +105,7 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     let data = duplicate(this.actor.data);
     const list = data.data.vehicle.modifications.list;
     const mods = list.filter(x => x.index !== parseInt(element.dataset.index));
-    data.data.vehicle.modifications.list = reIndexMods(mods);
+    data.data.vehicle.modifications.list = reIndexItems(mods);
     await this.actor.update(data);
   }
 
