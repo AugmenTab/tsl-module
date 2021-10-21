@@ -23,7 +23,8 @@ export async function calculateVehicleData(actor) {
   data.data.vehicle.modifications = mods;
   data.data.vehicle.components = setVehicleComponents(actor.data.data.vehicle);
   data.data.vehicle.weight = setVehicleWeight(
-    actor.data.data.vehicle, data.data.vehicle.components.body.stat.total
+    actor.data.data.vehicle, data.data.vehicle.components.body.stat.total,
+    cargoManifestAndWeight.weight
   );
   data.data.vehicle.hp = setVehicleHitPoints(
     actor.data.data.vehicle, data.data.vehicle.components.body.hp.total
@@ -638,8 +639,8 @@ function setVehicleRammingDamage(temp, stats, size) {
   return newRammingDamage;
 }
 
-function setVehicleWeight(vehicle, bodyWeight) {
-  let cargo = vehicle.weight.cargo || 0.0;
+function setVehicleWeight(vehicle, bodyWeight, cargoWeight) {
+  let cargo = cargoWeight || 0.0;
   let crew = vehicle.weight.crew || 0.0;
 
   if (cargo < 0) cargo = 0.0;

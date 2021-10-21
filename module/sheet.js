@@ -85,8 +85,16 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
 
   async _onCargoUpdate(event) {
     event.preventDefault();
+    const element = event.currentTarget;
+    let data = duplicate(this.actor.data);
+    let val = element.dataset.field === "weight"
+      ? parseFloat(element.value) : element.value;
+    if (element.dataset.field === "weight" && isNaN(val)) {
+      val = 0;
+    }
+    data.data.vehicle.cargo[element.dataset.index][element.dataset.field] = val;
+    await this.actor.update(data);
   }
-
 
   async _onModCreate(event) {
     event.preventDefault();
