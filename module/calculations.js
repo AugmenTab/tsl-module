@@ -221,6 +221,7 @@ export async function seedVehicleData(actor) {
 
   , "rammingDamage":
     { "base": 0
+    , "mods": 0
     , "temp": 0
     , "total": 0
     }
@@ -629,15 +630,16 @@ function setVehicleNotes(vehicle) {
 // TODO
 function setVehicleRammingDamage(temp, stats, size, mods) {
   let rammingBase = (
-    stats.topSpeed.total + Math.floor(stats.load.total / 10) + mods /* + SIZE */
+    stats.topSpeed.total + Math.floor(stats.load.total / 10) /* + SIZE */
   );
 
   if (rammingBase < 0) rammingBase = 1;
 
   let newRammingDamage =
   { "base": rammingBase
+  , "mods": mods
   , "temp": temp
-  , "total": rammingBase + temp
+  , "total": rammingBase + mods + temp
   }
   return newRammingDamage;
 }
