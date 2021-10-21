@@ -98,12 +98,11 @@
   , "cargoPage":
     { "crewWeight": "Crew Weight"
     , "cargoWeight": "Cargo Weight"
+    , "manifest": "CARGO MANIFEST"
     , "cargoItem": "CARGO ITEM"
-    , "carried": "CARRIED"
-    , "eachWeight": "EA WT"
-    , "quantity": "QTY"
-    , "weight": "WT"
+    , "weight": "LBS"
     , "notes": "Write notes about your cargo here."
+    , "empty": "This vehicle is not hauling any cargo."
     }
   
   , "stats":

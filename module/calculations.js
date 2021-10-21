@@ -15,6 +15,8 @@ export async function calculateVehicleData(actor) {
   let data = duplicate(actor.data);
   data.data.vehicle.notes = setVehicleNotes(actor.data.data.vehicle);
   data.data.vehicle.base = setVehicleBase(actor.data.data.vehicle);
+
+  let cargo = setVehicleCargo(actor.data.data.vehicle.cargo);
   
   let mods = setVehicleMods(actor.data.data.vehicle);
   data.data.vehicle.modifications = mods;
@@ -71,6 +73,8 @@ export async function seedVehicleData(actor) {
     , "classification": "none"
     , "pilot": ""
     }
+  
+  , "cargo": []
 
   , "components":
     { "engine":

@@ -117,11 +117,40 @@
         </div>
         <div class="crew-weight">
           <h3><b>{{localize "tsl.cargoPage.cargoWeight"}}:</b></h3>
-          <input style="width:100px" name="data.vehicle.weight.cargo" type="number" data-dtype="Number" value="{{data.vehicle.weight.cargo}}"/>
+          <h3>{{data.vehicle.weight.cargo}}</h3>
           <h3>lbs</h3>
         </div>
       </div>
-      <textarea style="height:575px" name="data.vehicle.notes.cargo" placeholder="{{localize "tsl.cargoPage.notes"}}">{{data.vehicle.notes.cargo}}</textarea>
+      <textarea name="data.vehicle.notes.cargo" placeholder="{{localize "tsl.cargoPage.notes"}}">{{data.vehicle.notes.cargo}}</textarea>
+      <table>
+        <thead>
+          <tr>
+            <th colspan="5">{{localize "tsl.cargoPage.manifest"}}</th>
+            <th style="width:30px">
+              <a><i class="fas fa-plus cargo-create"></i></a>
+            </th>
+          </tr>
+          <tr>
+            <th>{{localize "tsl.cargoPage.cargoItem"}}</th>
+            <th>{{localize "tsl.cargoPage.weight"}}</th>
+            <th><i class="fas fa-trash"></i></th>
+            <th>{{localize "tsl.cargoPage.cargoItem"}}</th>
+            <th>{{localize "tsl.cargoPage.weight"}}</th>
+            <th><i class="fas fa-trash"></i></th>
+          </tr>
+        </thead>
+      </table>
+      <div class="tsl-manifest">
+        {{#each data.vehicle.cargo as |item|}}
+          <div class="manifest-item">
+            <input class="cargo-update" style="width:225px" data-field="desc" data-index="{{item.index}}" type="text" value="{{item.desc}}" onfocus="this.select()"/>
+            <input class="cargo-update" style="width:70px" data-field="weight" data-index="{{item.index}}" type="number" data-dtype="Number" value="{{item.weight}}" onfocus="this.select()"/>
+            <a><i class="fas fa-trash cargo-delete" data-index="{{item.index}}"></i></a>
+          </div>
+        {{else}}
+          <div class="manifest-empty">{{localize "tsl.cargoPage.empty"}}</div>
+        {{/each}}
+      </div>
     </div>
 
     {{!-- Notes --}}
