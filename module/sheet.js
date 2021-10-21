@@ -33,10 +33,26 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   activateListeners(html) {
     super.activateListeners(html);
 
+    html.find(".hours-change").click(this._onHoursOfOperationChange.bind(this));
     html.find(".mod-create").click(this._onModCreate.bind(this));
     html.find(".mod-delete").click(this._onModDelete.bind(this));
     html.find(".mod-update").click(this._onModUpdate.bind(this));
     html.find(".speed-change").click(this._onSpeedChange.bind(this));
+  }
+
+  async _onHoursOfOperationChange(event) {
+    event.preventDefault();
+    const element = event.currentTarget;
+    const operation = element.getAttribute("data-operation");
+    let data = this.actor.data;
+    let hours = data.data.vehicle.hoursOfOperation.value || 0;
+    if (operation === "inc") {
+      let max = data.data.vehicle.hoursOfOperation.max
+      hours = (hours + 1) > max ? max : hours + 1;
+    } else if (operation === "dec") {
+      hours = (hours - 1) > 0 ? hours - 1 : 0;
+    }
+    await this.actor.update({ "data.vehicle.hoursOfOperation.value": hours });
   }
 
   async _onModCreate(event) {
