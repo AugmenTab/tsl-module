@@ -24,7 +24,7 @@ export async function calculateVehicleData(actor) {
   data.data.vehicle.components = setVehicleComponents(actor.data.data.vehicle);
   data.data.vehicle.weight = setVehicleWeight(
     actor.data.data.vehicle, data.data.vehicle.components.body.stat.total,
-    cargoManifestAndWeight.weight
+    cargoManifestAndWeight.weight, mods.values.weight
   );
   data.data.vehicle.hp = setVehicleHitPoints(
     actor.data.data.vehicle, data.data.vehicle.components.body.hp.total
@@ -33,7 +33,7 @@ export async function calculateVehicleData(actor) {
   let components = data.data.vehicle.components;
   let weight = data.data.vehicle.weight.curb;
   data.data.vehicle.stats = setVehicleDerivedStats(
-    components, actor.data.data.vehicle.stats, weight
+    components, actor.data.data.vehicle.stats, weight, mods.values
   );
   data.data.vehicle.ac = setVehicleArmorClass(
     actor.data.data.vehicle, components.suspension,
@@ -438,7 +438,7 @@ function setVehicleComponents(vehicle) {
   return components;
 }
 
-function setVehicleDerivedStats(components, stats, weight) {
+function setVehicleDerivedStats(components, stats, weight, mods) {
   let ho = components.engine.stat.total;
   let po = components.transmission.stat.base;
   let fl = components.transmission.stat.fluid;
@@ -462,21 +462,21 @@ function setVehicleDerivedStats(components, stats, weight) {
   let newLoad =
   { "base": loadBase
   , "temp": temps.load
-  , "total": loadBase + temps.load
+  , "total": loadBase + temps.load + mods.load
   };
 
   let topSpeedBase = (11 - speedPo) * ho;
   let newTopSpeed =
   { "base": topSpeedBase
   , "temp": temps.topSpeed
-  , "total": topSpeedBase + temps.topSpeed
+  , "total": topSpeedBase + temps.topSpeed + mods.topSpeed
   };
   
   let torqueBase = ho * torquePo * 10;
   let newTorque =
   { "base": torqueBase
   , "temp": temps.torque
-  , "total": torqueBase + temps.torque
+  , "total": torqueBase + temps.torque + mods.torque
   };
   
   // TODO: Needs a new formula for calculating XLR8.
@@ -484,7 +484,7 @@ function setVehicleDerivedStats(components, stats, weight) {
   let newXlr8 =
   { "base": xlr8Base
   , "temp": temps.xlr8
-  , "total": xlr8Base + temps.xlr8
+  , "total": xlr8Base + temps.xlr8 + mods.xlr8
   };
   
   let turningBase = Math.ceil((newTopSpeed.total + newLoad.total) / re);
@@ -494,7 +494,7 @@ function setVehicleDerivedStats(components, stats, weight) {
   let newTurning =
   { "base": turningBase
   , "temp": temps.turning
-  , "total": turningBase + temps.turning
+  , "total": turningBase + temps.turning + mods.turning
   };
 
   // TODO: Needs a new formula for calculating Stopping.
@@ -502,7 +502,7 @@ function setVehicleDerivedStats(components, stats, weight) {
   let newStopping =
   { "base": stoppingBase
   , "temp": temps.stopping
-  , "total": stoppingBase + temps.stopping
+  , "total": stoppingBase + temps.stopping + mods.stopping
   };
 
   let newDerivedStats =
@@ -642,7 +642,7 @@ function setVehicleRammingDamage(temp, stats, size, mods) {
   return newRammingDamage;
 }
 
-function setVehicleWeight(vehicle, bodyWeight, cargoWeight) {
+function setVehicleWeight(vehicle, bodyWeight, cargoWeight, mod) {
   let cargo = cargoWeight || 0.0;
   let crew = vehicle.weight.crew || 0.0;
 
@@ -652,7 +652,7 @@ function setVehicleWeight(vehicle, bodyWeight, cargoWeight) {
   let newWeight =
   { "cargo": cargo
   , "crew": crew
-  , "curb": bodyWeight + cargo + crew
+  , "curb": bodyWeight + cargo + crew + mod
   };
   return newWeight;
 }
