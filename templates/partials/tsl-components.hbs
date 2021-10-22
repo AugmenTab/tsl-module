@@ -33,7 +33,7 @@
         </td>
         <td>
           {{#unless (eq key "transmission")}}
-            <input style="width:50px" name="data.vehicle.components.{{key}}.stat.mods" type="number" data-dtype="Number" value="{{value.stat.mods}}"/>
+            {{localnum value.stat.mods}}
           {{else}}
             <input
               style="width:50px"
@@ -68,9 +68,7 @@
                 <span>
                   <input style="width:50px" name="data.vehicle.components.{{key}}.hp.base" type="number" data-dtype="Number" value="{{value.hp.base}}"/>
                 </span>
-                <span>
-                  <input style="width:50px" name="data.vehicle.components.{{key}}.hp.mods" type="number" data-dtype="Number" value="{{value.hp.mods}}"/>
-                </span>
+                <span>&plus;&nbsp;{{value.hp.mods}}</span>
               </div>
               <div class="body-stats">
                 <span style="font-size:1.25em">
@@ -80,9 +78,7 @@
                 <span>
                   <input style="width:50px" name="data.vehicle.components.{{key}}.armor.base" type="number" data-dtype="Number" value="{{value.armor.base}}"/>
                 </span>
-                <span>
-                  <input style="width:50px" name="data.vehicle.components.{{key}}.armor.mods" type="number" data-dtype="Number" value="{{value.armor.mods}}"/>
-                </span>
+                <span>&plus;&nbsp;{{value.armor.mods}}</span>
               </div>
             </div>
           </td>
@@ -105,7 +101,7 @@
             <input style="width:50px" name="data.vehicle.components.{{key}}.integrity.base" type="number" data-dtype="Number" value="{{value.integrity.base}}"/>
           </td>
           <td>
-            <input style="width:50px" name="data.vehicle.components.{{key}}.integrity.resist" type="number" data-dtype="Number" value="{{value.integrity.resist}}"/>
+            <input style="width:50px" name="data.vehicle.components.{{key}}.integrity.resist" type="number" data-dtype="Number" value="{{value.integrity.resist}}"/>&nbsp;&plus;&nbsp;{{value.integrity.mods}}
           </td>
         </tr>
       </tbody>

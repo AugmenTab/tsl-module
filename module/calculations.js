@@ -21,10 +21,12 @@ export async function calculateVehicleData(actor) {
   
   let mods = setVehicleMods(actor.data.data.vehicle);
   data.data.vehicle.modifications = mods;
-  data.data.vehicle.components = setVehicleComponents(actor.data.data.vehicle);
+  data.data.vehicle.components = setVehicleComponents(
+    actor.data.data.vehicle, mods.values
+  );
   data.data.vehicle.weight = setVehicleWeight(
     actor.data.data.vehicle, data.data.vehicle.components.body.stat.total,
-    cargoManifestAndWeight.weight, mods.values.weight
+    cargoManifestAndWeight.weight
   );
   data.data.vehicle.hp = setVehicleHitPoints(
     actor.data.data.vehicle, data.data.vehicle.components.body.hp.total
@@ -93,6 +95,7 @@ export async function seedVehicleData(actor) {
         { "base": 0
         , "total": 0
         , "resist": 0
+        , "mods": 0
         }
       , "primary": ""
       , "secondary": ""
@@ -108,6 +111,7 @@ export async function seedVehicleData(actor) {
         { "base": 0
         , "total": 0
         , "resist": 0
+        , "mods": 0
         }
       , "primary": ""
       , "secondary": ""
@@ -123,6 +127,7 @@ export async function seedVehicleData(actor) {
         { "base": 0
         , "total": 0
         , "resist": 0
+        , "mods": 0
         }
       , "primary": ""
       , "secondary": ""
@@ -138,6 +143,7 @@ export async function seedVehicleData(actor) {
         { "base": 0
         , "total": 0
         , "resist": 0
+        , "mods": 0
         }
       , "primary": ""
       , "secondary": ""
@@ -278,9 +284,9 @@ export async function seedVehicleData(actor) {
   await actor.update(data);
 }
 
-function setCommonComponent(component) {
-  let integrity = setComponentValueIntegrity(component.integrity);
-  let stat = setComponentValueStat(component.stat, integrity.total);
+function setCommonComponent(component, statMod, integrityMod) {
+  let integrity = setComponentValueIntegrity(component.integrity, integrityMod);
+  let stat = setComponentValueStat(component.stat, integrity.total, statMod);
   let newComponent =
   { "stat": stat
   , "integrity": integrity
@@ -290,20 +296,20 @@ function setCommonComponent(component) {
   return newComponent;  
 }
 
-function setComponentBody(body) {
+function setComponentBody(body, mods) {
   let newBody =
-  { "stat": setComponentValueStat(body.stat, 1)
-  , "armor": setComponentValueStat(body.armor, 1)
-  , "hp": setComponentValueStat(body.hp, 1)
+  { "stat": setComponentValueStat(body.stat, 1, mods.weight)
+  , "armor": setComponentValueStat(body.armor, 1, mods.armor)
+  , "hp": setComponentValueStat(body.hp, 1, mods.hitPoints)
   , "primary": body.primary || ""
   , "secondary": body.secondary || ""
   };
   return newBody;
 }
 
-function setComponentTransmission(trans) {
+function setComponentTransmission(trans, integrityMod) {
   let primary = trans.primary || "none";
-  let integrity = setComponentValueIntegrity(trans.integrity);
+  let integrity = setComponentValueIntegrity(trans.integrity, integrityMod);
 
   let base = trans.stat.base || 0;
   let fluid = trans.stat.fluid || 0;
@@ -347,10 +353,10 @@ function setComponentTransmission(trans) {
   return newTrans;
 }
 
-function setComponentValueIntegrity(integrity) {
-  let base = integrity.base || 0;
+function setComponentValueIntegrity(integrity, mod) {
+  let base = (integrity.base || 0);
   let resist = integrity.resist || 0;
-  let tally = base + resist;
+  let tally = base + resist + mod;
   let total;
 
   if (base === 0) {
@@ -366,14 +372,14 @@ function setComponentValueIntegrity(integrity) {
   let newIntegrity =
   { "base": base
   , "resist": resist
-  , "total": total 
+  , "total": total
+  , "mods": mod
   };
   return newIntegrity;
 }
 
-function setComponentValueStat(stat, totalIntegrity) {
+function setComponentValueStat(stat, totalIntegrity, mods) {
   let base = stat.base || 0;
-  let mods = stat.mods || 0;
   let tally = base + mods;
   let total;
 
@@ -428,14 +434,15 @@ function setVehicleCargo(cargo) {
   return newCargo;
 }
 
-function setVehicleComponents(vehicle) {
+function setVehicleComponents(vehicle, mods) {
   let components =
-  { "engine": setCommonComponent(vehicle.components.engine)
-  , "transmission": setComponentTransmission(vehicle.components.transmission)
-  , "chassis": setCommonComponent(vehicle.components.chassis)
-  , "suspension": setCommonComponent(vehicle.components.suspension)
-  , "body": setComponentBody(vehicle.components.body)
+  { "engine": setCommonComponent(vehicle.components.engine, mods.ho, mods.engineIR)
+  , "transmission": setComponentTransmission(vehicle.components.transmission, mods.transmissionIR)
+  , "chassis": setCommonComponent(vehicle.components.chassis, mods.br, mods.chassisIR)
+  , "suspension": setCommonComponent(vehicle.components.suspension, mods.re, mods.suspensionIR)
+  , "body": setComponentBody(vehicle.components.body, mods)
   };
+  console.log(components);
   return components;
 }
 
@@ -644,7 +651,7 @@ function setVehicleRammingDamage(temp, stats, size, mods) {
   return newRammingDamage;
 }
 
-function setVehicleWeight(vehicle, bodyWeight, cargoWeight, mod) {
+function setVehicleWeight(vehicle, bodyWeight, cargoWeight) {
   let cargo = cargoWeight || 0.0;
   let crew = vehicle.weight.crew || 0.0;
 
@@ -654,7 +661,7 @@ function setVehicleWeight(vehicle, bodyWeight, cargoWeight, mod) {
   let newWeight =
   { "cargo": cargo
   , "crew": crew
-  , "curb": bodyWeight + cargo + crew + mod
+  , "curb": bodyWeight + cargo + crew
   };
   return newWeight;
 }
