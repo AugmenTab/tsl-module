@@ -442,7 +442,6 @@ function setVehicleComponents(vehicle, mods) {
   , "suspension": setCommonComponent(vehicle.components.suspension, mods.re, mods.suspensionIR)
   , "body": setComponentBody(vehicle.components.body, mods)
   };
-  console.log(components);
   return components;
 }
 
@@ -488,11 +487,14 @@ function setVehicleDerivedStats(components, stats, weight, mods) {
   };
   
   // TODO: Needs a new formula for calculating XLR8.
-  let xlr8Base = 0;
+  let xlr8Base = Math.floor(
+    newTorque.total / (newLoad.total <= 0 ? 1 : newLoad.total)
+  );
+  let xlr8Total = xlr8Base + temps.xlr8 + mods.xlr8
   let newXlr8 =
   { "base": xlr8Base
   , "temp": temps.xlr8
-  , "total": xlr8Base + temps.xlr8 + mods.xlr8
+  , "total": Math.min(xlr8Total, newTopSpeed.total)
   };
   
   let turningBase = Math.ceil((newTopSpeed.total + newLoad.total) / re);
