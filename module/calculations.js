@@ -45,8 +45,8 @@ export async function calculateVehicleData(actor) {
   let stats = data.data.vehicle.stats;
   data.data.vehicle.speed.max = stats.topSpeed.total;
   data.data.vehicle.rammingDamage = setVehicleRammingDamage(
-    actor.data.data.vehicle.rammingDamage.temp, stats, 
-    data.data.vehicle.base.size, mods.values.rammingDamage
+    actor.data.data.vehicle.rammingDamage.temp, stats.load.total,
+    actor.data.data.vehicle.speed.value, mods.values.rammingDamage
   );
   data.data.vehicle.hoursOfOperation = setVehicleHoursOfOperation(
     actor.data.data.vehicle, stats.load.total, mods.values.hoursOfOperation
@@ -635,19 +635,21 @@ function setVehicleNotes(vehicle) {
   return notes;
 }
 
-// TODO
-function setVehicleRammingDamage(temp, stats, size, mods) {
-  let rammingBase = (
-    stats.topSpeed.total + Math.floor(stats.load.total / 10) /* + SIZE */
-  );
+function setVehicleRammingDamage(temp, load, speed, mods) {
+  let rammingBase = speed + load;
+  let total = rammingBase + mods + temp;
 
-  if (rammingBase < 0) rammingBase = 1;
+  if (speed === 0) {
+    total = 0;
+  } else if (total < 0) {
+    rammingBase = 1;
+  }
 
   let newRammingDamage =
   { "base": rammingBase
   , "mods": mods
   , "temp": temp
-  , "total": rammingBase + mods + temp
+  , "total": total
   }
   return newRammingDamage;
 }
