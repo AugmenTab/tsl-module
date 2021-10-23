@@ -101,7 +101,9 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   async _onMakePush(event) {
     event.preventDefault();
     const component = event.currentTarget.dataset.component;
-    const integrity = this.actor.data.data.vehicle.components[component].integrity;
+    const integrity = (
+      this.actor.data.data.vehicle.components[component].integrity.total
+    );
     const pilot = this.actor.data.data.vehicle.base.pilot;
     const vehicle = this.actor.name;
     await rollPushCheck(component, integrity, pilot, vehicle);
