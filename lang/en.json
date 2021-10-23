@@ -195,5 +195,14 @@
       , "magical": "Magical"
       }
     }
+
+  , "chat":
+    { "push": "PUSH"
+    , "roll": "ROLL"
+    , "cancel": "CANCEL"
+    , "options":
+      { "pilotIR": "Pilot's Integrity Resistance"
+      }
+    }
   }
 }
