@@ -209,6 +209,26 @@
       }
     }
 
+    .tsl-push {
+      table td {
+        border: 1px solid black;
+      }
+
+      .push-cell {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 16px;
+        place-items: center;
+        font-weight: bold;
+        margin: 0 8px;
+
+        button {
+          font-weight: bold;
+          width: 120px;
+        }
+      }
+    }
+
     .tsl-components-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);

@@ -63,17 +63,26 @@
         />
         {{> "modules/tsl-module/templates/partials/tsl-summary-rightpane.hbs"}}
       </div>
-      <div class="tsl-final-row">
+      <div class="tsl-push">
         <table>
           <thead>
             <tr>
-              <th>{{localize "tsl.summaryPage.onboardWeapons"}}</th>
+              <th colspan="4">{{localize "tsl.summaryPage.pushComponent"}}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>
-                <textarea name="data.vehicle.notes.weapons" placeholder="{{localize "tsl.summaryPage.notes"}}">{{data.vehicle.notes.weapons}}</textarea>
+                <div class="push-cell">
+                {{#each data.vehicle.components as |value key|}}
+                  {{#unless (eq key "body")}}
+                      <div class="push-component">
+                        {{localize (concat "tsl.components." (concat key ".label"))}}:&nbsp;{{value.integrity.total}}
+                        <button class="make-push" name="key">{{localize "tsl.summaryPage.push"}}</button>
+                      </div>
+                  {{/unless}}
+                {{/each}}
+                </div>
               </td>
             </tr>
           </tbody>

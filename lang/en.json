@@ -50,7 +50,8 @@
     , "hoursOfOperation": "HOURS OF OPERATION"
     , "fuelCap": "Fuel Capacity"
     , "rammingDamage": "RAMMING DAMAGE"
-    , "onboardWeapons": "ONBOARD WEAPONS"
+    , "pushComponent": "PUSH A COMPONENT"
+    , "push": "PUSH"
     , "notes": "Write notes about your onboard weapons here."
     }
   
