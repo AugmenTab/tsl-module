@@ -77,7 +77,9 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{localnum data.vehicle.rammingDamage.base}}</td>
+        <td>
+          {{localnum data.vehicle.rammingDamage.base}}&nbsp;&plus;&nbsp;{{data.vehicle.modifications.values.rammingDamage}}
+        </td>
         <td>
           <input style="width:40px" name="data.vehicle.rammingDamage.temp" type="number" data-dtype="Number" value="{{data.vehicle.rammingDamage.temp}}"/>
         </td>

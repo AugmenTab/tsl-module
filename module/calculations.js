@@ -506,7 +506,9 @@ function setVehicleDerivedStats(components, stats, weight, mods) {
   , "total": turningBase + temps.turning + mods.turning
   };
 
-  let stoppingBase = br - Math.ceil((newLoad.total > 0 ? newLoad.total : 1) / 100);
+  let stoppingBase = (
+    (2 * br) - Math.ceil((newLoad.total > 0 ? newLoad.total : 1) / 100)
+  );
   if (stoppingBase < 0) stoppingBase = 1;
   let newStopping =
   { "base": stoppingBase
