@@ -78,7 +78,7 @@
                   {{#unless (eq key "body")}}
                       <div class="push-component">
                         {{localize (concat "tsl.components." (concat key ".label"))}}:&nbsp;{{value.integrity.total}}
-                        <button class="make-push" name="key">{{localize "tsl.summaryPage.push"}}</button>
+                        <button class="make-push" data-component="{{key}}">{{localize "tsl.summaryPage.push"}}</button>
                       </div>
                   {{/unless}}
                 {{/each}}

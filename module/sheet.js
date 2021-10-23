@@ -1,4 +1,5 @@
 import { calculateVehicleData, reIndexItems, seedVehicleData } from "./calculations.js";
+import { rollPushCheck } from "./chat.js";
 
 export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   get template() {
@@ -37,6 +38,7 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     html.find(".cargo-delete").click(this._onCargoDelete.bind(this));
     html.find(".cargo-update").click(this._onCargoUpdate.bind(this));
     html.find(".hours-change").click(this._onHoursOfOperationChange.bind(this));
+    html.find(".make-push").click(this._onMakePush.bind(this));
     html.find(".mod-create").click(this._onModCreate.bind(this));
     html.find(".mod-delete").click(this._onModDelete.bind(this));
     html.find(".mod-update").click(this._onModUpdate.bind(this));
@@ -94,6 +96,13 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     }
     data.data.vehicle.cargo[element.dataset.index][element.dataset.field] = val;
     await this.actor.update(data);
+  }
+
+  async _onMakePush(event) {
+    event.preventDefault();
+    const component = event.currentTarget.dataset.component;
+    const integrity = this.actor.data.data.vehicle.components[component].integrity;
+    await rollPushCheck(component, integrity);
   }
 
   async _onModCreate(event) {
