@@ -486,9 +486,8 @@ function setVehicleDerivedStats(components, stats, weight, mods) {
   , "total": torqueBase + temps.torque + mods.torque
   };
   
-  // TODO: Needs a new formula for calculating XLR8.
   let xlr8Base = Math.floor(
-    newTorque.total / (newLoad.total <= 0 ? 1 : newLoad.total)
+    newTorque.total / (newLoad.total > 0 ? newLoad.total : 1)
   );
   let xlr8Total = xlr8Base + temps.xlr8 + mods.xlr8
   let newXlr8 =
@@ -507,8 +506,8 @@ function setVehicleDerivedStats(components, stats, weight, mods) {
   , "total": turningBase + temps.turning + mods.turning
   };
 
-  // TODO: Needs a new formula for calculating Stopping.
-  let stoppingBase = 0;
+  let stoppingBase = br - Math.ceil((newLoad.total > 0 ? newLoad.total : 1) / 100);
+  if (stoppingBase < 0) stoppingBase = 1;
   let newStopping =
   { "base": stoppingBase
   , "temp": temps.stopping
