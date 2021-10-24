@@ -6,7 +6,48 @@ export async function makeRamAttack(name, vehicle) {
       const error = game.i18n.localize("tsl.chat.error.isNaNError");
       return ui.notifications.error(error);
     }
-    console.log("Continuing.");
+
+    let base = vehicle.speed.value;
+    if (ramOptions.collision === "swipe") {
+      base = Math.abs(vehicle.speed.value - ramOptions.speedDiff);
+    } else if (ramOptions.collision === "headOn") {
+      base = vehicle.speed.value + ramOptions.speedDiff;
+    } else if (ramOptions.collision === "tbone") {
+      const halfTarget = Math.floor(ramOptions.speedDiff / 2);
+      base = vehicle.speed.value + halfTarget >= 0 ? halfTarget : 0;
+    }
+
+    let userDamage = base;
+    let targetDamage = base;
+    let loadDamage = Math.abs(vehicle.stats.load.total - ramOptions.loadDiff);
+    let lighter = vehicle.stats.load.total > ramOptions.loadDiff ? "target" : "user";
+    if (lighter === "user") {
+      userDamage += loadDamage;
+    } else {
+      targetDamage += loadDamage;
+    }
+    if (Math.abs(ramOptions.sizeDiff) >= 3) ramOptions.immovable = true;
+    if (ramOptions.immovable) {
+      let immovableDamage = Math.floor(vehicle.stats.load.total / 10);
+      userDamage += immovableDamage;
+      targetDamage += immovableDamage;
+    }
+    if (ramOptions.sizeDiff > 0) {
+      userDamage = Math.floor(userDamage / (2 * Math.abs(ramOptions.sizeDiff)));
+      targetDamage = Math.floor(targetDamage * (1 + (0.25 * Math.abs(ramOptions.sizeDiff))));
+    } else if (ramOptions.sizeDiff < 0) {
+      targetDamage = Math.floor(targetDamage / (2 * Math.abs(ramOptions.sizeDiff)));
+      userDamage = Math.floor(userDamage * (1 + (0.25 * Math.abs(ramOptions.sizeDiff))));
+    }
+
+    let data =
+    { "template": "ram"
+    , "vehicle": name
+    , "pilot": vehicle.base.pilot
+    , "userDamage": userDamage > 0 ? userDamage : 1
+    , "targetDamage": targetDamage > 0 ? targetDamage : 1
+    };
+    await postChatMessage(data);
   }
 }
 
@@ -87,15 +128,18 @@ async function getPushOptions(component) {
 async function postChatMessage(data) {
   const titleLink = `tsl.components.${data.component}.label`;
   const pushLink = "tsl.chat.push";
+  let flavor = data.template === "push"
+    ? `${game.i18n.localize(titleLink)} ${game.i18n.localize(pushLink)}`
+    : game.i18n.localize("tsl.chat.ram");
   await AudioHelper.play(
-  { src: "sounds/dice.wav"
+  { src: data.template === "push" ? "sounds/dice.wav" : "modules/tsl-module/sounds/ram.mp3"
   , volume: 0.8
   , autoplay: true
   , loop: false
   }, true);
   await ChatMessage.create(
   { user: game.user.id
-  , flavor: `${game.i18n.localize(titleLink)} ${game.i18n.localize(pushLink)}`
+  , flavor: flavor
   , content: await buildChatMessageContent(data)
   }, {});
 }
@@ -105,7 +149,7 @@ function _processRamOptions(form) {
   { collision: form.collision.value
   , speedDiff: parseInt(form.speedDiff.value)
   , loadDiff: parseInt(form.loadDiff.value)
-  , immovaable: form.immovable.checked
+  , immovable: form.immovable.checked
   , sizeDiff: parseInt(form.sizeDiff.value)
   };
   return options;
