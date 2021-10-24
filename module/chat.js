@@ -7,45 +7,17 @@ export async function makeRamAttack(name, vehicle) {
       return ui.notifications.error(error);
     }
 
-    let base = vehicle.speed.value;
-    if (ramOptions.collision === "swipe") {
-      base = Math.abs(vehicle.speed.value - ramOptions.speedDiff);
-    } else if (ramOptions.collision === "headOn") {
-      base = vehicle.speed.value + ramOptions.speedDiff;
-    } else if (ramOptions.collision === "tbone") {
-      const halfTarget = Math.floor(ramOptions.speedDiff / 2);
-      base = vehicle.speed.value + halfTarget >= 0 ? halfTarget : 0;
-    }
-
-    let userDamage = base;
-    let targetDamage = base;
-    let loadDamage = Math.abs(vehicle.stats.load.total - ramOptions.loadDiff);
-    let lighter = vehicle.stats.load.total > ramOptions.loadDiff ? "target" : "user";
-    if (lighter === "user") {
-      userDamage += loadDamage;
-    } else {
-      targetDamage += loadDamage;
-    }
-    if (Math.abs(ramOptions.sizeDiff) >= 3) ramOptions.immovable = true;
-    if (ramOptions.immovable) {
-      let immovableDamage = Math.floor(vehicle.stats.load.total / 10);
-      userDamage += immovableDamage;
-      targetDamage += immovableDamage;
-    }
-    if (ramOptions.sizeDiff > 0) {
-      userDamage = Math.floor(userDamage / (2 * Math.abs(ramOptions.sizeDiff)));
-      targetDamage = Math.floor(targetDamage * (1 + (0.25 * Math.abs(ramOptions.sizeDiff))));
-    } else if (ramOptions.sizeDiff < 0) {
-      targetDamage = Math.floor(targetDamage / (2 * Math.abs(ramOptions.sizeDiff)));
-      userDamage = Math.floor(userDamage * (1 + (0.25 * Math.abs(ramOptions.sizeDiff))));
-    }
-
+    let damages = calculateRammingDamage(
+      vehicle.speed.value, vehicle.stats.load.total, ramOptions
+    );
     let data =
     { "template": "ram"
     , "vehicle": name
     , "pilot": vehicle.base.pilot
-    , "userDamage": userDamage > 0 ? userDamage : 1
-    , "targetDamage": targetDamage > 0 ? targetDamage : 1
+    , "userDamage": Math.max(damages.userDamage, 1)
+    , "targetDamage": Math.max(damages.targetDamage, 1)
+    , "userPassengerDamage": Math.max(damages.userPassengerDamage, 1)
+    , "targetPassengerDamage": Math.max(damages.targetPassengerDamage, 1)
     };
     await postChatMessage(data);
   }
@@ -74,6 +46,52 @@ export async function rollPushCheck(component, integrity, pilot, vehicle) {
 async function buildChatMessageContent(data) {
   const template = `modules/tsl-module/templates/chat/${data.template}-chat.hbs`;
   return await renderTemplate(template, data);
+}
+
+function calculateRammingDamage(speed, load, ramOptions) {
+  let base = speed;
+  if (ramOptions.collision === "swipe") {
+    base = Math.abs(speed - ramOptions.speedDiff);
+  } else if (ramOptions.collision === "headOn") {
+    base = speed + ramOptions.speedDiff;
+  } else if (ramOptions.collision === "tbone") {
+    const halfTarget = Math.floor(ramOptions.speedDiff / 2);
+    base = speed + halfTarget >= 0 ? halfTarget : 0;
+  }
+
+  let userDamage = base;
+  let targetDamage = base;
+  let loadDamage = Math.abs(load - ramOptions.loadDiff);
+  let lighter = load > ramOptions.loadDiff ? "target" : "user";
+  if (lighter === "user") {
+    userDamage += loadDamage;
+  } else {
+    targetDamage += loadDamage;
+  }
+  if (Math.abs(ramOptions.sizeDiff) >= 3) ramOptions.immovable = true;
+  if (ramOptions.immovable) {
+    let immovableDamage = Math.floor(load / 10);
+    userDamage += immovableDamage;
+    targetDamage += immovableDamage;
+  }
+  if (ramOptions.sizeDiff > 0) {
+    userDamage = Math.floor(userDamage / (2 * Math.abs(ramOptions.sizeDiff)));
+    targetDamage = Math.floor(targetDamage * (1 + (0.25 * Math.abs(ramOptions.sizeDiff))));
+  } else if (ramOptions.sizeDiff < 0) {
+    targetDamage = Math.floor(targetDamage / (2 * Math.abs(ramOptions.sizeDiff)));
+    userDamage = Math.floor(userDamage * (1 + (0.25 * Math.abs(ramOptions.sizeDiff))));
+  }
+
+  let userPassengerDamage = 0;
+  let targetPassengerDamage = 0;
+
+  let damages =
+  { "userDamage": userDamage
+  , "targetDamage": targetDamage
+  , "userPassengerDamage": userPassengerDamage
+  , "targetPassengerDamage": targetPassengerDamage
+  };
+  return damages;
 }
 
 async function getRamOptions() {
