@@ -1,5 +1,5 @@
 import { calculateVehicleData, reIndexItems, seedVehicleData } from "./calculations.js";
-import { rollPushCheck } from "./chat.js";
+import { makeRamAttack, rollPushCheck } from "./chat.js";
 
 export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
   get template() {
@@ -42,6 +42,7 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     html.find(".mod-create").click(this._onModCreate.bind(this));
     html.find(".mod-delete").click(this._onModDelete.bind(this));
     html.find(".mod-update").click(this._onModUpdate.bind(this));
+    html.find(".ram-attack").click(this._onRamAttack.bind(this));
     html.find(".speed-change").click(this._onSpeedChange.bind(this));
   }
 
@@ -147,6 +148,16 @@ export class TSLVehicleSheet extends game.pf1.applications.ActorSheetPFNPC {
     }
     data.data.vehicle.modifications.list[element.dataset.index][element.dataset.field] = val;
     await this.actor.update(data);
+  }
+
+  async _onRamAttack(event) {
+    event.preventDefault();
+    if (this.actor.data.data.vehicle.rammingDamage.total <= 0) {
+      const error = "tsl.chat.error.stationaryVehicle";
+      ui.notifications.error(game.i18n.localize(error));
+    } else {
+      await makeRamAttack(this.actor.name, this.actor.data.data.vehicle);
+    }
   }
 
   async _onSpeedChange(event) {

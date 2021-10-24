@@ -198,10 +198,24 @@
 
   , "chat":
     { "push": "PUSH"
+    , "ram": "RAM ATTACK"
     , "roll": "ROLL"
     , "cancel": "CANCEL"
     , "options":
       { "pilotIR": "Pilot's Integrity Resistance"
+      , "collision": "Collision"
+      , "still": "Stationary"
+      , "swipe": "Side-Swipe"
+      , "tbone": "T-Bone"
+      , "headOn": "Head-On"
+      , "speedDiff": "Target's Current Speed"
+      , "loadDiff": "Target's Current Load"
+      , "immovable": "Target is immovable?"
+      , "sizeDiff": "How many sizes larger is your vehicle than its target?"
+      }
+    , "error":
+      { "stationaryVehicle": "The vehicle's current Speed is 0. You cannot make a Ram Attack with a stationary vehicle."
+      , "isNaNError": "You entered a non-number value into a number field. Please try again."
       }
     }
   }

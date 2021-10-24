@@ -1,3 +1,15 @@
+export async function makeRamAttack(name, vehicle) {
+  const ramOptions = await getRamOptions();
+  if (!ramOptions.cancelled) {
+    const nums = [ramOptions.speedDiff, ramOptions.loadDiff, ramOptions.sizeDiff];
+    if (nums.some(x => isNaN(x))) {
+      const error = game.i18n.localize("tsl.chat.error.isNaNError");
+      return ui.notifications.error(error);
+    }
+    console.log("Continuing.");
+  }
+}
+
 export async function rollPushCheck(component, integrity, pilot, vehicle) {
   const pushOptions = await getPushOptions(component);
   if (!pushOptions.cancelled) {
@@ -23,6 +35,30 @@ async function buildChatMessageContent(data) {
   return await renderTemplate(template, data);
 }
 
+async function getRamOptions() {
+  const template = "modules/tsl-module/templates/chat/ram-dialog.hbs";
+  const html = await renderTemplate(template, {});
+  return new Promise(resolve => {
+    const data = {
+      title: game.i18n.localize("tsl.chat.ram"),
+      content: html,
+      buttons: {
+        roll: {
+          label: game.i18n.localize("tsl.chat.roll"),
+          callback: html => resolve(_processRamOptions(html[0].querySelector("form")))
+        },
+        cancel: {
+          label: game.i18n.localize("tsl.chat.cancel"),
+          callback: html => resolve({cancelled: true})
+        }
+      },
+      default: "roll",
+      close: () => resolve({cancelled: true})
+    };
+    new Dialog(data, null).render(true);
+  });
+}
+
 async function getPushOptions(component) {
   const template = "modules/tsl-module/templates/chat/push-dialog.hbs";
   const html = await renderTemplate(template, {});
@@ -34,7 +70,7 @@ async function getPushOptions(component) {
       buttons: {
         roll: {
           label: game.i18n.localize("tsl.chat.roll"),
-          callback: html => resolve(_processTestOptions(html[0].querySelector("form")))
+          callback: html => resolve(_processPushOptions(html[0].querySelector("form")))
         },
         cancel: {
           label: game.i18n.localize("tsl.chat.cancel"),
@@ -59,12 +95,22 @@ async function postChatMessage(data) {
   }, true);
   await ChatMessage.create(
   { user: game.user.id
-  // , speaker: data.pilot
   , flavor: `${game.i18n.localize(titleLink)} ${game.i18n.localize(pushLink)}`
   , content: await buildChatMessageContent(data)
   }, {});
 }
 
-function _processTestOptions(form) {
+function _processRamOptions(form) {
+  const options =
+  { collision: form.collision.value
+  , speedDiff: parseInt(form.speedDiff.value)
+  , loadDiff: parseInt(form.loadDiff.value)
+  , immovaable: form.immovable.checked
+  , sizeDiff: parseInt(form.sizeDiff.value)
+  };
+  return options;
+}
+
+function _processPushOptions(form) {
   return { pilotIR: form.pilotIR.value };
 }
