@@ -1,29 +1,19 @@
 export async function rollPushCheck(component, integrity, pilot, vehicle) {
   const pushOptions = await getPushOptions(component);
   if (!pushOptions.cancelled) {
-    const roll = await new Roll("d10").roll({ async: true });
     const pilotIR = parseInt(pushOptions.pilotIR);
     const target = integrity + (isNaN(pilotIR) ? 0 : pilotIR);
-
-    let outcome = "";
-    if (roll.total === 10) {
-      outcome = "failure";
-    } else if (roll.total >= target) {
-      outcome = "failure";
-    } else {
-      outcome = "success";
-    }
+    const roll = await new Roll(`d10cf=10cs<${target}`).roll({ async: true });
 
     let data =
-    { "result": roll.total
-    , "outcome": outcome
-    , "render": await roll.render()
-    , "target": target
+    { "render": await roll.render()
+    , "target": target >= 10 ? 10 : target
     , "component": component
     , "pilot": pilot
     , "vehicle": vehicle
     , "template": "push"
     };
+    console.log(data.render);
     await postChatMessage(data);
   }
 }
