@@ -32,7 +32,7 @@ export async function rollPushCheck(component, integrity, pilot, vehicle) {
     const roll = await new Roll(`d10cf=10cs<${target}`).roll({ async: true });
 
     let data =
-    { "render": await roll.render()
+    { "render": correctRenderHtml(await roll.render())
     , "target": target >= 10 ? 10 : target
     , "component": component
     , "pilot": pilot
@@ -103,6 +103,14 @@ function calculateRammingDamage(speed, load, rammingDamage, ramOptions) {
     )
   };
   return damages;
+}
+
+function correctRenderHtml(html) {
+  const reg = /<h4 class="dice-total">[0-1]/g;
+  let newResult = html.includes(`<h4 class="dice-total">1`)
+    ? `<h4 style="color:green" class="dice-total">Success!`
+    : `<h4 style="color:red" class="dice-total">Failure!`;
+  return html.replace(reg, newResult);
 }
 
 async function getRamOptions() {
