@@ -1,2 +1,17 @@
-{{log this}}
-<p>WIP</p>
+<div>
+  <p>{{this.pilot}} moves {{this.vehicle}} into position, and makes a ram attack!</p>
+  <div class="tsl-ram-damages">
+    <div class="ram-damage-placard">
+      <span class="damage-header">{{this.vehicle}}</span>
+      <span class="damage">{{this.userDamage}}</span>
+    </div>
+    <div class="ram-damage-placard">
+      <span class="damage-header">Target</span>
+      <span class="damage">{{this.targetDamage}}</span>
+    </div>
+  </div>
+  <p><b>Damage for Your Passengers:&nbsp;</b>{{this.userPassengerDamage}}</p>
+  {{#unless (eq this.targetPassengerDamage 0)}}
+    <p><b>Damage for Their Passengers:&nbsp;</b>{{this.targetPassengerDamage}}</p>
+  {{/unless}}
+</div>

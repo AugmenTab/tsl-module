@@ -11,6 +11,36 @@
   }
 }
 
+.message-content {
+  .tsl-ram-damages {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 4px;
+    place-items: center;
+
+    .ram-damage-placard {
+      display: grid;
+      grid-gap: 4px;
+      place-items: center;
+
+      .damage-header {
+        font-size: 2em;
+        font-weight: bold;
+      }
+
+      .damage {
+        font-weight: bold;
+        font-size: 3em;
+        border: 1px solid black;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        padding: 4px 8px;
+      }
+    }
+  }
+}
+
 .tsl-vehicle {
   table {
     border: 1px solid black;
