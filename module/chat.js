@@ -8,16 +8,17 @@ export async function makeRamAttack(name, vehicle) {
     }
 
     let damages = calculateRammingDamage(
-      vehicle.speed.value, vehicle.stats.load.total, ramOptions
+      vehicle.speed.value, vehicle.stats.load.total,
+      vehicle.rammingDamage, ramOptions
     );
     let data =
     { "template": "ram"
     , "vehicle": name
     , "pilot": vehicle.base.pilot
-    , "userDamage": Math.max(damages.userDamage, 1)
-    , "targetDamage": Math.max(damages.targetDamage, 1)
-    , "userPassengerDamage": Math.max(damages.userPassengerDamage, 1)
-    , "targetPassengerDamage": Math.max(damages.targetPassengerDamage, 1)
+    , "userDamage": damages.userDamage
+    , "targetDamage": damages.targetDamage
+    , "userPassengerDamage": damages.userPassengerDamage
+    , "targetPassengerDamage": damages.targetPassengerDamage
     };
     await postChatMessage(data);
   }
@@ -38,7 +39,6 @@ export async function rollPushCheck(component, integrity, pilot, vehicle) {
     , "vehicle": vehicle
     , "template": "push"
     };
-    console.log(data.render);
     await postChatMessage(data);
   }
 }
@@ -48,7 +48,7 @@ async function buildChatMessageContent(data) {
   return await renderTemplate(template, data);
 }
 
-function calculateRammingDamage(speed, load, ramOptions) {
+function calculateRammingDamage(speed, load, rammingDamage, ramOptions) {
   let base = speed;
   if (ramOptions.collision === "swipe") {
     base = Math.abs(speed - ramOptions.speedDiff);
@@ -81,15 +81,26 @@ function calculateRammingDamage(speed, load, ramOptions) {
     targetDamage = Math.floor(targetDamage / (2 * Math.abs(ramOptions.sizeDiff)));
     userDamage = Math.floor(userDamage * (1 + (0.25 * Math.abs(ramOptions.sizeDiff))));
   }
+  targetDamage += rammingDamage.mods + rammingDamage.temp;
 
-  let userPassengerDamage = 0;
+  let userPassengerDamage = Math.floor(
+    userDamage * (ramOptions.userTop === "open" ? 0.75 : 0.5)
+  );
   let targetPassengerDamage = 0;
+  if (ramOptions.targetTop === "open") {
+    targetPassengerDamage = Math.floor(targetDamage * 0.75);
+  } else if (ramOptions.targetTop === "hard") {
+    targetPassengerDamage = Math.floor(targetDamage * 0.5);
+  }
+  
 
   let damages =
-  { "userDamage": userDamage
-  , "targetDamage": targetDamage
-  , "userPassengerDamage": userPassengerDamage
-  , "targetPassengerDamage": targetPassengerDamage
+  { "userDamage": Math.max(userDamage, 1)
+  , "targetDamage": Math.max(targetDamage, 1)
+  , "userPassengerDamage": Math.max(userPassengerDamage, 1)
+  , "targetPassengerDamage": Math.max(
+      targetPassengerDamage, (ramOptions.targetTop === "none" ? 0 : 1)
+    )
   };
   return damages;
 }
@@ -169,6 +180,8 @@ function _processRamOptions(form) {
   , loadDiff: parseInt(form.loadDiff.value)
   , immovable: form.immovable.checked
   , sizeDiff: parseInt(form.sizeDiff.value)
+  , userTop: form.userTop.value
+  , targetTop: form.targetTop.value
   };
   return options;
 }

@@ -212,6 +212,11 @@
       , "loadDiff": "Target's Current Load"
       , "immovable": "Target is immovable?"
       , "sizeDiff": "How many sizes larger is your vehicle than its target?"
+      , "userTop": "Your Vehicle's Top"
+      , "targetTop": "Target Vehicle's Top"
+      , "none": "None"
+      , "open": "Open"
+      , "hard": "Hard"
       }
     , "error":
       { "stationaryVehicle": "The vehicle's current Speed is 0. You cannot make a Ram Attack with a stationary vehicle."
