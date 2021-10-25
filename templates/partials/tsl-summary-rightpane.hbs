@@ -41,7 +41,7 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{data.vehicle.hoursOfOperation.base}}</td>
+        <td>{{data.vehicle.hoursOfOperation.base}}&nbsp;&plus;&nbsp;{{data.vehicle.modifications.values.hoursOfOperation}}</td>
         <td>{{data.vehicle.hoursOfOperation.ldPen}}</td>
         <td><input style="width:40px" name="data.vehicle.hoursOfOperation.temp" type="number" data-dtype="Number" value="{{data.vehicle.hoursOfOperation.temp}}"/></td>
       </tr>
