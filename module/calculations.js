@@ -36,7 +36,7 @@ export async function calculateVehicleData(actor) {
   let weight = data.data.vehicle.weight.curb;
   data.data.vehicle.stats = setVehicleDerivedStats(
     components, actor.data.data.vehicle.stats, weight, mods.values,
-    actor.data.data.vehicle.speed.value
+    actor.data.data.vehicle.speed.value, actor.data.data.vehicle.base.type
   );
   data.data.vehicle.ac = setVehicleArmorClass(
     actor.data.data.vehicle, components.suspension,
@@ -446,7 +446,7 @@ function setVehicleComponents(vehicle, mods) {
   return components;
 }
 
-function setVehicleDerivedStats(components, stats, weight, mods, speed) {
+function setVehicleDerivedStats(components, stats, weight, mods, speed, type) {
   let ho = components.engine.stat.total;
   let po = components.transmission.stat.base;
   let fl = components.transmission.stat.fluid;
@@ -507,9 +507,10 @@ function setVehicleDerivedStats(components, stats, weight, mods, speed) {
   , "total": turningBase + temps.turning + mods.turning
   };
 
-  let stoppingBase = (
-    (2 * br) - Math.ceil((newLoad.total > 0 ? newLoad.total : 1) / 100)
-  );
+  let stoppingBase = type === "aquatic"
+    ? newXlr8.total
+    : (2 * br) - Math.ceil((newLoad.total > 0 ? newLoad.total : 1) / 100)
+  ;
   if (stoppingBase < 0) stoppingBase = 1;
   let newStopping =
   { "base": stoppingBase
