@@ -35,7 +35,8 @@ export async function calculateVehicleData(actor) {
   let components = data.data.vehicle.components;
   let weight = data.data.vehicle.weight.curb;
   data.data.vehicle.stats = setVehicleDerivedStats(
-    components, actor.data.data.vehicle.stats, weight, mods.values
+    components, actor.data.data.vehicle.stats, weight, mods.values,
+    actor.data.data.vehicle.speed.value
   );
   data.data.vehicle.ac = setVehicleArmorClass(
     actor.data.data.vehicle, components.suspension,
@@ -445,7 +446,7 @@ function setVehicleComponents(vehicle, mods) {
   return components;
 }
 
-function setVehicleDerivedStats(components, stats, weight, mods) {
+function setVehicleDerivedStats(components, stats, weight, mods, speed) {
   let ho = components.engine.stat.total;
   let po = components.transmission.stat.base;
   let fl = components.transmission.stat.fluid;
@@ -496,7 +497,7 @@ function setVehicleDerivedStats(components, stats, weight, mods) {
   , "total": Math.min(xlr8Total, newTopSpeed.total)
   };
   
-  let turningBase = Math.ceil((newTopSpeed.total + newLoad.total) / re);
+  let turningBase = speed === 0 ? 0 : Math.ceil((speed + newLoad.total) / re);
   if (turningBase === Infinity || isNaN(turningBase)) {
     turningBase = 0;
   }
