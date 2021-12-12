@@ -54,11 +54,16 @@
       <div class="tsl-picture-row">
         {{> "modules/tsl-module/templates/partials/tsl-summary-leftpane.hbs"}}
         <img
-          {{#if (cond "||" (eq data.vehicle.base.type "none") (eq data.vehicle.base.classification "none"))}}
-            alt="No vehicle." src="modules/tsl-module/img/none.png"
+          {{!-- Remove not conditional on type once other types are complete. --}}
+          {{#if (cond "||"
+                  (not (eq data.vehicle.base.type "ground"))
+                  (eq data.vehicle.base.classification "none")
+                )
+          }}
+            alt="No vehicle." src="modules/tsl-module/img/none.webp"
           {{else}}
             alt="{{localize (concat "tsl.vehicleTypes." data.vehicle.base.type)}}&nbsp;{{localize (concat "tsl.classifications." data.vehicle.base.classification)}}"
-            src="modules/tsl-module/img/{{data.vehicle.base.type}}-{{data.vehicle.base.classification}}.png"
+            src="modules/tsl-module/img/{{data.vehicle.base.type}}-{{data.vehicle.base.classification}}.webp"
           {{/if}}
         />
         {{> "modules/tsl-module/templates/partials/tsl-summary-rightpane.hbs"}}
